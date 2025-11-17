@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lucky Friday · Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+    <header>
+        <div class="header-title">Ditmemay1xbet</div>
+        <div class="header-center">
+            <div class="role-toggle" role="group" aria-label="Role selector">
+                <button id="role-accountant" type="button" class="active" data-role="accountant">Accountant</button>
+                <button id="role-bet" type="button" data-role="bet">Bet Master</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="theme-toggle" role="group" aria-label="Theme selector">
+                <button id="theme-light" type="button" class="active">
+                    <img src="/imgs/icons/ic_sun.png" alt="Light mode" />
+                </button>
+                <button id="theme-dark" type="button">
+                    <img src="/imgs/icons/ic_moon.png" alt="Dark mode" />
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="layout">
+        <aside class="sidebar">
+            <nav>
+                <a class="nav-link active" href="#">Dashboard</a>
+            </nav>
+            <div class="sidebar-section" data-role-section="accountant">
+                <p class="sidebar-title">ACCOUNTANT</p>
+                <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <div class="welcome-row">
+                <div class="welcome-text">
+                    <p>Welcome back</p>
+                    <h2 id="welcome-name">Eson</h2>
+                </div>
+                <div class="welcome-meta">
+                    <p class="weekday">{{WEEKDAY}}</p>
+                    <span class="date">{{DATE}}</span>
+                </div>
+            </div>
+            <div class="metric-cards">
+                <article class="metric-card">
+                    <h4>Number of “Fridays”</h4>
+                    <p>9</p>
+                    <span>Weeks</span>
+                </article>
+                <article class="metric-card">
+                    <h4>Total Scam Amount</h4>
+                    <p>₫2,950,000,000</p>
+                    <span>VND</span>
+                </article>
+            </div>
+        </main>
+    </div>
+    <script>
+        const root = document.documentElement;
+        const lightBtn = document.getElementById('theme-light');
+        const darkBtn = document.getElementById('theme-dark');
+        const roleAccountantBtn = document.getElementById('role-accountant');
+        const roleBetBtn = document.getElementById('role-bet');
+        const welcomeName = document.getElementById('welcome-name');
+        const accountantSections = document.querySelectorAll('[data-role-section="accountant"], [data-role-only="accountant"]');
+
+        const ROLE_COOKIE = 'lf_role';
+        const THEME_COOKIE = 'lf_theme';
+
+        function setCookie(name, value, days = 365) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ').find(row => row.startsWith(`${name}=`))?.split('=')[1];
+        }
+
+        function setTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            if (theme === 'light') {
+                lightBtn.classList.add('active');
+                darkBtn.classList.remove('active');
+            } else {
+                darkBtn.classList.add('active');
+                lightBtn.classList.remove('active');
+            }
+            setCookie(THEME_COOKIE, theme);
+        }
+
+        function setRole(role) {
+            const isAccountant = role === 'accountant';
+            welcomeName.textContent = isAccountant ? 'Eson' : 'I Hear it';
+            roleAccountantBtn.classList.toggle('active', isAccountant);
+            roleBetBtn.classList.toggle('active', !isAccountant);
+            accountantSections.forEach(section => {
+                section.classList.toggle('hidden', !isAccountant);
+            });
+            setCookie(ROLE_COOKIE, role);
+        }
+
+        lightBtn.addEventListener('click', () => setTheme('light'));
+        darkBtn.addEventListener('click', () => setTheme('dark'));
+        roleAccountantBtn.addEventListener('click', () => setRole('accountant'));
+        roleBetBtn.addEventListener('click', () => setRole('bet'));
+
+        const savedTheme = getCookie(THEME_COOKIE) || 'light';
+        const savedRole = getCookie(ROLE_COOKIE) || 'accountant';
+        setTheme(savedTheme);
+        setRole(savedRole);
+    </script>
+</body>
+</html>
+

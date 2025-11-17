@@ -1,0 +1,203 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Lucky Friday - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 15px;
+            line-height: 1.4;
+            background-color: #F6F8FA;
+            color: #0A0C10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            border: 1px solid #D0D7DE;
+            border-radius: 6px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0A0C10;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            color: #57606A;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0A0C10;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D0D7DE;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            color: #0A0C10;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0969DA;
+            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.3);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: #0969DA;
+            color: #FFFFFF;
+            border: 1px solid #0969DA;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .login-button:hover {
+            background-color: #0752AC;
+            border-color: #0752AC;
+        }
+
+        .login-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.3);
+        }
+
+        .divider {
+            margin: 20px 0;
+            height: 1px;
+            background-color: rgba(177, 186, 196, 0.3);
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #57606A;
+            font-size: 13px;
+        }
+
+        .footer-link {
+            color: #0969DA;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background-color: #D1FADF;
+            color: #1A7F37;
+            border: 1px solid #A7F3D0;
+        }
+
+        .message.error {
+            background-color: #FEF2F2;
+            color: #CF222E;
+            border: 1px solid #FECACA;
+        }
+    </style>
+</head>
+<body>
+    <div class='login-container'>
+        <div class='login-header'>
+            <h1 class='login-title'>Lucky Friday</h1>
+            <p class='login-subtitle'>Sign in to your account</p>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class='message success'>
+                @TempData["Message"]
+            </div>
+        }
+
+        <form method='post' asp-action='Index'>
+            <div class='form-group'>
+                <label for='username' class='form-label'>Username</label>
+                <input
+                    type='text'
+                    id='username'
+                    name='username'
+                    class='form-input'
+                    placeholder='Enter your username'
+                    required
+                />
+            </div>
+
+            <div class='form-group'>
+                <label for='password' class='form-label'>Password</label>
+                <input
+                    type='password'
+                    id='password'
+                    name='password'
+                    class='form-input'
+                    placeholder='Enter your password'
+                    required
+                />
+            </div>
+
+            <button type='submit' class='login-button'>Sign in</button>
+        </form>
+
+        <div class='divider'></div>
+
+        <div class='footer-text'>
+            <a href='#' class='footer-link'>Forgot password?</a>
+        </div>
+    </div>
+</body>
+</html>
