@@ -52,3 +52,7 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Project metadata docs (tracked elsewhere)
+PROJECT_CONTEXT.md
+ui-rules.md
