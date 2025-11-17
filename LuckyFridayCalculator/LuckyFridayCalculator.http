@@ -1,0 +1,6 @@
+@LuckyFridayCalculator_HostAddress = http://localhost:5264
+
+GET {{LuckyFridayCalculator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
