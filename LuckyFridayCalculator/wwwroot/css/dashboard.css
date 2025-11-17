@@ -129,6 +129,8 @@ header {
 .layout {
     flex: 1;
     display: flex;
+    overflow: hidden;
+    height: calc(100vh - 60px);
 }
 
 .sidebar {
@@ -139,6 +141,9 @@ header {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
 }
 
 .sidebar-title {
@@ -174,6 +179,9 @@ header {
     flex-direction: column;
     gap: 24px;
     background-color: var(--bg);
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 .welcome-row {
@@ -247,5 +255,396 @@ header {
 
 .hidden {
     display: none !important;
+}
+
+/* ============================================
+   REUSABLE COMPONENTS
+   ============================================ */
+
+/* Buttons */
+.btn-primary {
+    background: #0969da;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-primary:hover {
+    background: #0860ca;
+}
+
+.btn-secondary {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-secondary:hover {
+    background: var(--surface);
+}
+
+.btn-danger {
+    background: #cf222e;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-danger:hover {
+    background: #a40e26;
+}
+
+.btn-danger:disabled,
+.btn-secondary:disabled,
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    margin-bottom: 16px;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--text);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    box-sizing: border-box;
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    height: 38px;
+    line-height: 22px;
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2357606a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0969da;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.running {
+    background: #ddf4ff;
+    color: #0969da;
+}
+
+.status-badge.eat {
+    background: #dafbe1;
+    color: #1a7f37;
+}
+
+.status-badge.lost {
+    background: #fff5f5;
+    color: #cf222e;
+}
+
+:root[data-theme='dark'] .status-badge.running {
+    background: rgba(9, 105, 218, 0.2);
+    color: #58a6ff;
+}
+
+:root[data-theme='dark'] .status-badge.eat {
+    background: rgba(26, 127, 55, 0.2);
+    color: #3fb950;
+}
+
+:root[data-theme='dark'] .status-badge.lost {
+    background: rgba(207, 34, 46, 0.2);
+    color: #f85149;
+}
+
+/* Messages */
+.error-message {
+    color: #cf222e;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.success-message {
+    background: #dafbe1;
+    color: #1a7f37;
+    border: 1px solid #a7f3d0;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+:root[data-theme='dark'] .success-message {
+    background: rgba(26, 127, 55, 0.2);
+    color: #3fb950;
+    border-color: rgba(26, 127, 55, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 48px;
+    color: var(--text-muted);
+}
+
+/* Page Headers */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--text);
+}
+
+/* Cards */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: all var(--transition-fast);
+}
+
+.card:hover {
+    box-shadow: 0 1px 3px rgba(27, 31, 36, 0.12);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0 0 4px 0;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Tables */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.table thead {
+    background: var(--bg);
+}
+
+.table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: var(--bg);
+}
+
+/* Odds Toggle (reusable) */
+.odds-toggle {
+    display: inline-flex;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2px;
+    gap: 4px;
+}
+
+.odds-toggle button {
+    border: none;
+    padding: 4px 12px;
+    font-size: 12px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.odds-toggle button.active {
+    background-color: var(--surface);
+    color: var(--text);
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(27, 31, 36, 0.08);
+    border: 1px solid var(--border);
+}
+
+/* Sidebar Odds Toggle Section */
+.sidebar-odds-toggle {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.sidebar-odds-toggle-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+    width: 100%;
+}
+
+/* Action Buttons Group */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* Badges/Tags */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text);
+}
+
+.badge-primary {
+    background: #0969da;
+    color: #fff;
+    border-color: #0969da;
+}
+
+.current-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #0969da;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-left: 8px;
 }
 

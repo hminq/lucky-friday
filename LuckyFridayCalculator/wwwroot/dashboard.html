@@ -34,6 +34,16 @@
             <div class="sidebar-section" data-role-section="accountant">
                 <p class="sidebar-title">ACCOUNTANT</p>
                 <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
+                <a class="nav-link" href="/members" data-role-only="accountant">Members</a>
+                <a class="nav-link" href="/fridays" data-role-only="accountant">Fridays</a>
+                <a class="nav-link" href="/hedgesets" data-role-only="accountant">Withdrawable Bets</a>
+            </div>
+            <div class="sidebar-odds-toggle">
+                <label class="sidebar-odds-toggle-label">Odds Format</label>
+                <div class="odds-toggle">
+                    <button type="button" id="global-odds-hk" class="odds-btn active" onclick="setGlobalOddsType('hk')">HK</button>
+                    <button type="button" id="global-odds-int" class="odds-btn" onclick="setGlobalOddsType('int')">INT</button>
+                </div>
             </div>
         </aside>
         <main class="main-content">
@@ -112,8 +122,23 @@
 
         const savedTheme = getCookie(THEME_COOKIE) || 'light';
         const savedRole = getCookie(ROLE_COOKIE) || 'accountant';
+        const savedOddsType = getCookie('lf_odds_type') || 'hk';
         setTheme(savedTheme);
         setRole(savedRole);
+        
+        function setGlobalOddsType(type) {
+            const hkBtn = document.getElementById('global-odds-hk');
+            const intBtn = document.getElementById('global-odds-int');
+            if (hkBtn && intBtn) {
+                hkBtn.classList.toggle('active', type === 'hk');
+                intBtn.classList.toggle('active', type === 'int');
+                setCookie('lf_odds_type', type);
+            }
+        }
+        
+        if (document.getElementById('global-odds-hk')) {
+            setGlobalOddsType(savedOddsType);
+        }
     </script>
 </body>
 </html>
