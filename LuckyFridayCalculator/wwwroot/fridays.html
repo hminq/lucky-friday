@@ -195,14 +195,21 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 10px 18px;
-            font-size: 15px;
-            font-weight: 500;
             display: inline-flex;
-            gap: 6px;
+            flex-direction: column;
+            gap: 4px;
             align-items: center;
+            min-width: 120px;
         }
-        .today-lineup-ratio {
-            display: none;
+        .today-lineup-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .today-lineup-share {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
         }
         .status-badge.running {
             font-weight: 600;
@@ -217,6 +224,35 @@
             border-radius: var(--radius-sm);
             padding: 12px;
             background: var(--surface);
+        }
+        .money-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .money-input-group input {
+            flex: 1;
+        }
+        .money-input-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .money-input-button {
+            height: 38px;
+            padding: 0 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+        }
+        .money-input-button:hover {
+            background: #0969da;
+            border-color: #0969da;
+            color: #fff;
         }
         .today-bet-title {
             font-size: 14px;
@@ -325,16 +361,22 @@
         }
         .lineup-badge {
             display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 8px;
+            align-items: baseline;
+            gap: 6px;
+            padding: 4px 10px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text);
+            font-weight: 500;
         }
         .lineup-amount {
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .lineup-share {
+            font-size: 11px;
             font-weight: 500;
             color: var(--text-muted);
         }
@@ -486,7 +528,6 @@
             gap: 8px;
             margin-bottom: 12px;
         }
-        .lineup-add-form select,
         .lineup-add-form input {
             flex: 1;
             height: 38px;
@@ -501,17 +542,22 @@
             transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
         .lineup-add-form select {
+            flex: 1;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2357606a' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 12px center;
             padding-right: 36px;
+            padding-left: 14px;
         }
         .lineup-add-form select:focus,
         .lineup-add-form input:focus {
             outline: none;
             border-color: #0969da;
             box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+        }
+        .lineup-add-form .money-input-group {
+            flex: 1;
         }
         .lineup-add-form button {
             white-space: nowrap;
@@ -793,7 +839,13 @@
                         </div>
                         <div class="form-group">
                             <label for="friday-deposit">Total Deposit (VND) *</label>
-                            <input type="number" id="friday-deposit" name="totalDeposit" step="0.01" min="0.01" max="8099999.99" required oninput="updateLineupValidation(); validateSection1();" />
+                            <div class="money-input-group">
+                                <input type="number" id="friday-deposit" name="totalDeposit" step="0.01" min="0.01" max="8099999.99" required oninput="updateLineupValidation(); validateSection1();" data-money-input />
+                                <div class="money-input-actions">
+                                    <button type="button" class="money-input-button" data-multiplier="1000000">Triệu</button>
+                                    <button type="button" class="money-input-button" data-multiplier="100000">Trăm nghìn</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="friday-status">Status *</label>
@@ -814,7 +866,13 @@
                                 <select id="lineup-member-select">
                                     <option value="">Select member...</option>
                                 </select>
-                                <input type="number" id="lineup-amount-input" step="0.01" min="0.01" placeholder="Amount (VND)" />
+                                <div class="money-input-group">
+                                    <input type="number" id="lineup-amount-input" step="0.01" min="0.01" placeholder="Amount (VND)" data-money-input />
+                                    <div class="money-input-actions">
+                                        <button type="button" class="money-input-button" data-multiplier="1000000">Triệu</button>
+                                        <button type="button" class="money-input-button" data-multiplier="100000">Trăm nghìn</button>
+                                    </div>
+                                </div>
                                 <button type="button" class="btn-secondary" onclick="addLineupMember()">Add</button>
                             </div>
                             <div class="lineup-list" id="lineup-list"></div>
@@ -1606,7 +1664,13 @@
                 const lineupBadges = todayFriday.lineupEntries.length > 0
                     ? (() => {
                         const limited = todayFriday.lineupEntries.slice(0, 6).map(le => {
-                            return `<span class="today-lineup-badge">${escapeHtml(le.memberName)}</span>`;
+                            const share = formatContributionShare(le.amount);
+                            return `
+                                <span class="today-lineup-badge">
+                                    <span class="today-lineup-name">${escapeHtml(le.memberName)}</span>
+                                    ${share ? `<span class="today-lineup-share">${share}</span>` : ''}
+                                </span>
+                            `;
                         }).join('');
                         const remaining = todayFriday.lineupEntries.length - 6;
                         return limited + (remaining > 0 ? `<span class="today-lineup-badge">+${remaining} more</span>` : '');
@@ -1746,9 +1810,15 @@
                             <div class="lineup-section">
                                 <div class="lineup-label">Lineup</div>
                                 <div class="lineup-entries">
-                                    ${friday.lineupEntries.length > 0 
+                                ${friday.lineupEntries.length > 0 
                                         ? friday.lineupEntries.map(le => {
-                                                return `<span class="lineup-badge">${escapeHtml(le.memberName)}</span>`;
+                                                const share = formatContributionShare(le.amount);
+                                                return `
+                                                    <span class="lineup-badge">
+                                                        <span>${escapeHtml(le.memberName)}</span>
+                                                        ${share ? `<span class="lineup-share">${share}</span>` : ''}
+                                                    </span>
+                                                `;
                                             }).join('')
                                         : '<span class="lineup-badge" style="opacity: 0.5;">No lineup</span>'
                                     }
@@ -2309,6 +2379,15 @@
                 minimumFractionDigits: 0
             }).format(amount);
         }
+        function formatMillionValue(amount) {
+            const million = amount / 1000000;
+            if (!isFinite(million) || million <= 0) return '';
+            const fixed = Number.isInteger(million) ? million.toString() : parseFloat(million.toFixed(2)).toString();
+            return fixed.replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1');
+        }
+        function formatContributionShare(amount) {
+            return formatMillionValue(amount);
+        }
 
         function showError(message) {
             const errorDiv = document.getElementById('error-message');
@@ -2318,6 +2397,29 @@
 
         function hideError() {
             document.getElementById('error-message').style.display = 'none';
+        }
+
+        function setupMoneyInputMultipliers() {
+            const moneyInputs = document.querySelectorAll('[data-money-input]');
+            moneyInputs.forEach(input => {
+                const container = input.closest('.money-input-group');
+                if (!container) return;
+                const buttons = container.querySelectorAll('[data-multiplier]');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const multiplier = parseFloat(button.dataset.multiplier);
+                        if (!multiplier) return;
+                        const currentValue = parseFloat(input.value || '0');
+                        const baseValue = Number.isNaN(currentValue) ? 0 : currentValue;
+                        const newValue = baseValue * multiplier;
+                        const normalized = Math.round(newValue * 100) / 100;
+                        input.value = normalized;
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                        button.blur();
+                    });
+                });
+            });
         }
 
         // Store Fridays data globally for toggle function
@@ -2334,6 +2436,7 @@
             }
         }
 
+        setupMoneyInputMultipliers();
         loadAccounts();
         loadMembers();
         loadFridaysWithData();
