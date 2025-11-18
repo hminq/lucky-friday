@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using LuckyFridayCalculator.Models;
 using LuckyFridayCalculator.Models.Enums;
 
@@ -10,10 +11,12 @@ namespace LuckyFridayCalculator.Controllers;
 public class FridaysController : ControllerBase
 {
     private readonly LuckyFridayDbContext _context;
+    private readonly ILogger<FridaysController> _logger;
 
-    public FridaysController(LuckyFridayDbContext context)
+    public FridaysController(LuckyFridayDbContext context, ILogger<FridaysController> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -72,6 +75,7 @@ public class FridaysController : ControllerBase
                 .ThenInclude(le => le.Member)
             .Include(f => f.SingleBets)
             .Include(f => f.HedgeSet)
+                .ThenInclude(hs => hs != null ? hs.SingleBets : null!)
             .FirstOrDefaultAsync(f => f.Id == id);
 
         if (friday == null)
@@ -110,7 +114,23 @@ public class FridaysController : ControllerBase
                 OddsHongKong = sb.OddsHongKong,
                 OddsInternational = sb.OddsInternational,
                 Status = sb.Status
-            }).ToList()
+            }).ToList(),
+            HedgeSet = friday.HedgeSet != null ? new FridayHedgeSetDto
+            {
+                Id = friday.HedgeSet.Id,
+                Title = friday.HedgeSet.Title,
+                Budget = friday.HedgeSet.Budget,
+                SingleBets = friday.HedgeSet.SingleBets.Select(sb => new SingleBetDto
+                {
+                    Id = sb.Id,
+                    Title = sb.Title,
+                    MatchStartTime = sb.MatchStartTime,
+                    MatchEndTime = sb.MatchEndTime,
+                    OddsHongKong = sb.OddsHongKong,
+                    OddsInternational = sb.OddsInternational,
+                    Status = sb.Status
+                }).ToList()
+            } : null
         };
     }
 
@@ -316,12 +336,20 @@ public class FridaysController : ControllerBase
     {
         var friday = await _context.Fridays
             .Include(f => f.Account)
+            .Include(f => f.LineupEntries)
+            .Include(f => f.SingleBets)
+            .Include(f => f.HedgeSet)
+                .ThenInclude(hs => hs != null ? hs.SingleBets : null!)
             .FirstOrDefaultAsync(f => f.Id == id);
 
         if (friday == null)
         {
             return NotFound();
         }
+
+        // Log received BetDateTime for debugging
+        _logger.LogInformation("UpdateFriday: Received BetDateTime = {BetDateTime}, HasValue = {HasValue}", 
+            dto.BetDateTime, dto.BetDateTime.HasValue);
 
         if (dto.AccountId.HasValue && dto.AccountId.Value != friday.AccountId)
         {
@@ -333,10 +361,19 @@ public class FridaysController : ControllerBase
             friday.AccountId = dto.AccountId.Value;
             friday.Account = account;
         }
-
+        
+        // Always update BetDateTime if provided
+        // For nullable DateTime, HasValue will be true if a value was sent
         if (dto.BetDateTime.HasValue)
         {
+            _logger.LogInformation("UpdateFriday: Updating BetDateTime from {Old} to {New}", 
+                friday.BetDateTime, dto.BetDateTime.Value);
             friday.BetDateTime = dto.BetDateTime.Value;
+        }
+        else
+        {
+            _logger.LogWarning("UpdateFriday: BetDateTime not provided or HasValue is false. Current value: {Current}", 
+                friday.BetDateTime);
         }
 
         if (dto.TotalOddsHongKong.HasValue)
@@ -366,6 +403,118 @@ public class FridaysController : ControllerBase
         if (dto.Dog != null)
         {
             friday.Dog = dto.Dog.Trim().Length > 0 ? dto.Dog.Trim() : null;
+        }
+
+        // Update LineupEntries if provided
+        if (dto.LineupEntries != null && dto.LineupEntries.Count > 0)
+        {
+            // Validate lineup total
+            var lineupTotal = dto.LineupEntries.Sum(le => le.Amount);
+            if (Math.Abs(lineupTotal - friday.TotalDeposit) >= 0.01m)
+            {
+                return BadRequest(new { error = $"Lineup total ({lineupTotal}) must equal Total Deposit ({friday.TotalDeposit})" });
+            }
+
+            // Remove existing lineup entries
+            _context.LineupEntries.RemoveRange(friday.LineupEntries);
+
+            // Add new lineup entries
+            foreach (var leDto in dto.LineupEntries)
+            {
+                var member = await _context.Members.FindAsync(leDto.MemberId);
+                if (member == null)
+                {
+                    return BadRequest(new { error = $"Member with ID {leDto.MemberId} not found" });
+                }
+
+                var lineupEntry = new LineupEntry
+                {
+                    FridayId = friday.Id,
+                    Friday = friday,
+                    MemberId = leDto.MemberId,
+                    Member = member,
+                    Amount = leDto.Amount
+                };
+                _context.LineupEntries.Add(lineupEntry);
+            }
+        }
+
+        // Update SingleBets if provided
+        if (dto.SingleBets != null)
+        {
+            if (dto.SingleBets.Count != 3)
+            {
+                return BadRequest(new { error = "Friday must have exactly 3 SingleBets" });
+            }
+
+            // Remove existing single bets (only those belonging to Friday, not HedgeSet)
+            var existingFridaySingleBets = friday.SingleBets.Where(sb => sb.FridayId == friday.Id && sb.HedgeSetId == null).ToList();
+            _context.SingleBets.RemoveRange(existingFridaySingleBets);
+
+            // Add new single bets
+            foreach (var sbDto in dto.SingleBets)
+            {
+                var singleBet = new SingleBet
+                {
+                    FridayId = friday.Id,
+                    Friday = friday,
+                    Title = sbDto.Title,
+                    MatchStartTime = sbDto.MatchStartTime,
+                    MatchEndTime = sbDto.MatchEndTime,
+                    OddsHongKong = sbDto.OddsHongKong,
+                    OddsInternational = sbDto.OddsInternational,
+                    Status = sbDto.Status
+                };
+                _context.SingleBets.Add(singleBet);
+            }
+        }
+
+        // Update HedgeSet if provided
+        if (dto.HedgeSet != null)
+        {
+            if (dto.HedgeSet.SingleBets == null || dto.HedgeSet.SingleBets.Count != 2)
+            {
+                return BadRequest(new { error = "HedgeSet must have exactly 2 SingleBets" });
+            }
+
+            // Delete existing hedge set and its single bets
+            if (friday.HedgeSet != null)
+            {
+                var existingHedgeSetSingleBets = await _context.SingleBets
+                    .Where(sb => sb.HedgeSetId == friday.HedgeSet.Id)
+                    .ToListAsync();
+                _context.SingleBets.RemoveRange(existingHedgeSetSingleBets);
+                _context.HedgeSets.Remove(friday.HedgeSet);
+                await _context.SaveChangesAsync();
+            }
+
+            // Create new hedge set
+            var hedgeSet = new HedgeSet
+            {
+                FridayId = friday.Id,
+                Friday = friday,
+                Title = dto.HedgeSet.Title,
+                Budget = dto.HedgeSet.Budget
+            };
+            _context.HedgeSets.Add(hedgeSet);
+            await _context.SaveChangesAsync();
+
+            // Add SingleBets to HedgeSet
+            foreach (var sbDto in dto.HedgeSet.SingleBets)
+            {
+                var singleBet = new SingleBet
+                {
+                    HedgeSetId = hedgeSet.Id,
+                    HedgeSet = hedgeSet,
+                    Title = sbDto.Title,
+                    MatchStartTime = sbDto.MatchStartTime,
+                    MatchEndTime = sbDto.MatchEndTime,
+                    OddsHongKong = sbDto.OddsHongKong,
+                    OddsInternational = sbDto.OddsInternational,
+                    Status = sbDto.Status
+                };
+                _context.SingleBets.Add(singleBet);
+            }
         }
 
         await _context.SaveChangesAsync();
@@ -428,6 +577,9 @@ public class UpdateFridayDto
     public decimal? TotalDeposit { get; set; }
     public BetStatus? Status { get; set; }
     public string? Dog { get; set; }
+    public List<LineupEntryCreateDto>? LineupEntries { get; set; }
+    public List<SingleBetCreateDto>? SingleBets { get; set; }
+    public HedgeSetCreateDto? HedgeSet { get; set; }
 }
 
 public class FridayDto
@@ -444,6 +596,15 @@ public class FridayDto
     public bool IsCurrentFriday { get; set; }
     public bool HasHedgeSet { get; set; }
     public List<LineupEntryDto> LineupEntries { get; set; } = new();
+    public List<SingleBetDto> SingleBets { get; set; } = new();
+    public FridayHedgeSetDto? HedgeSet { get; set; }
+}
+
+public class FridayHedgeSetDto
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public decimal Budget { get; set; }
     public List<SingleBetDto> SingleBets { get; set; } = new();
 }
 

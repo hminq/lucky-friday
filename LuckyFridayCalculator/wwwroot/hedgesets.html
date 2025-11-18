@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Withdrawable Bets · Lucky Friday</title>
+    <title>Sus Bets · Lucky Friday</title>
     <link rel="stylesheet" href="/css/dashboard.css" />
     <style>
         /* HedgeSets-specific styles */
@@ -91,7 +91,7 @@
                 <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
                 <a class="nav-link" href="/members" data-role-only="accountant">Members</a>
                 <a class="nav-link" href="/fridays" data-role-only="accountant">Fridays</a>
-                <a class="nav-link active" href="/hedgesets" data-role-only="accountant">Withdrawable Bets</a>
+                <a class="nav-link active" href="/hedgesets" data-role-only="accountant">Sus Bets</a>
             </div>
             <div class="sidebar-odds-toggle">
                 <label class="sidebar-odds-toggle-label">Odds Format</label>
@@ -104,7 +104,7 @@
         <main class="main-content">
             <div class="hedgesets-container" data-role-only="accountant">
                 <div class="page-header">
-                    <h1>Withdrawable Bets</h1>
+                    <h1>Sus Bets</h1>
                 </div>
                 <div id="error-message" class="error-message" style="display: none;"></div>
                 <div class="hedgesets-list" id="hedgesets-list">
@@ -114,7 +114,7 @@
             <div class="bet-master-content" data-role-only="bet" style="display: none;">
                 <div class="empty-state" style="padding: 48px; text-align: center;">
                     <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master View</h2>
-                    <p style="color: var(--text-muted);">Switch to Accountant role to view Withdrawable Bets.</p>
+                    <p style="color: var(--text-muted);">Switch to Accountant role to view Sus Bets.</p>
                 </div>
             </div>
         </main>
@@ -204,14 +204,24 @@
 
         async function loadHedgeSets() {
             try {
+                // Check for Friday ID filter from query parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const fridayId = urlParams.get('fridayId');
+                
                 const response = await fetch('/api/hedgesets');
-                if (!response.ok) throw new Error('Failed to load Withdrawable Bets');
-                const hedgeSets = await response.json();
+                if (!response.ok) throw new Error('Failed to load Sus Bets');
+                let hedgeSets = await response.json();
+                
+                // Filter by Friday ID if provided
+                if (fridayId) {
+                    hedgeSets = hedgeSets.filter(hs => hs.fridayId === parseInt(fridayId));
+                }
+                
                 renderHedgeSets(hedgeSets);
             } catch (error) {
-                showError('Failed to load Withdrawable Bets: ' + error.message);
+                showError('Failed to load Sus Bets: ' + error.message);
                 document.getElementById('hedgesets-list').innerHTML = 
-                    '<div class="empty-state">Error loading Withdrawable Bets</div>';
+                    '<div class="empty-state">Error loading Sus Bets</div>';
             }
         }
 
@@ -219,7 +229,7 @@
             const list = document.getElementById('hedgesets-list');
             
             if (hedgeSets.length === 0) {
-                list.innerHTML = '<div class="empty-state">No Withdrawable Bets found</div>';
+                list.innerHTML = '<div class="empty-state">No Sus Bets found</div>';
                 return;
             }
 

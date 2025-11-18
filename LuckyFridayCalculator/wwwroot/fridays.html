@@ -11,15 +11,9 @@
             background: var(--surface);
             border: 2px solid #0969da;
             border-radius: var(--radius-lg);
-            padding: 24px;
-            margin-bottom: 24px;
+            padding: 36px;
+            margin-bottom: 40px;
             box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
-        }
-        .today-friday-box h2 {
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--text);
-            margin: 0 0 12px 0;
         }
         .today-friday-box.empty {
             border-color: var(--border);
@@ -29,22 +23,211 @@
         }
         .today-friday-content {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 48px;
         }
-        .today-friday-info {
-            flex: 1;
+        .today-friday-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+        }
+        .today-friday-eyebrow {
+            display: none;
         }
         .today-friday-title {
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 28px;
+            font-weight: 600;
             color: var(--text);
-            margin: 0 0 4px 0;
+            margin: 0;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
         }
         .today-friday-account {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        .today-friday-subtitle {
             font-size: 14px;
             color: var(--text-muted);
+            margin: 4px 0 0;
+        }
+        .today-status-block {
+            text-align: right;
+        }
+        .today-status-block .status-badge {
+            font-size: 16px;
+            padding: 12px 24px;
+            font-weight: 600;
+        }
+        .today-status-block .status-badge.running {
+            font-weight: 700;
+            font-size: 17px;
+        }
+        .today-status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .today-status-block .dog-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 6px;
+        }
+        .today-status-block .dog-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .today-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 24px;
+        }
+        .today-metric {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            background: var(--bg);
+        }
+        .today-metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .today-metric-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .today-metric.expected-return .today-metric-value {
+            color: #1a7f37;
+        }
+        .today-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px 32px;
+        }
+        .timeline-node {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .timeline-node:first-child {
+            text-align: left;
+        }
+        .timeline-node:last-child {
+            text-align: right;
+            margin-left: auto;
+        }
+        .timeline-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .timeline-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .timeline-divider {
+            flex: 1;
+            height: 2px;
+            background: var(--border);
+            position: relative;
+            align-self: center;
             margin: 0;
+        }
+        .timeline-divider::before,
+        .timeline-divider::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid #0969da;
+            background: var(--surface);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .timeline-divider::before {
+            left: -5px;
+        }
+        .timeline-divider::after {
+            right: -5px;
+        }
+        .today-lineup,
+        .today-bets {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+        }
+        .today-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+        .today-lineup-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+        .today-lineup-badge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 18px;
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .today-lineup-ratio {
+            display: none;
+        }
+        .status-badge.running {
+            font-weight: 600;
+        }
+        .today-bets-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .today-bet-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            background: var(--surface);
+        }
+        .today-bet-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .today-bet-time,
+        .today-bet-odds {
+            font-size: 12px;
+            color: var(--text-muted);
         }
         .fridays-list {
             display: flex;
@@ -55,7 +238,7 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 24px;
+            padding: 18px;
             transition: all var(--transition-fast);
         }
         .friday-card.current {
@@ -66,12 +249,12 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }
         .friday-card-actions {
             display: flex;
             gap: 8px;
-            margin-top: 12px;
+            margin-top: 8px;
         }
         .friday-card-title {
             font-size: 20px;
@@ -98,14 +281,14 @@
         }
         .friday-card-meta {
             display: flex;
-            gap: 16px;
+            gap: 10px;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
         }
         .friday-card-meta .status-badge {
-            font-size: 16px;
-            padding: 8px 16px;
+            font-size: 13px;
+            padding: 6px 12px;
             font-weight: 600;
         }
         .dog-label {
@@ -120,7 +303,7 @@
         .friday-card-content {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
         .lineup-section {
             display: flex;
@@ -137,16 +320,18 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            justify-content: flex-start;
+            align-items: center;
         }
         .lineup-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
+            gap: 4px;
+            padding: 3px 8px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text);
         }
         .lineup-amount {
@@ -156,17 +341,17 @@
         .singlebets-section {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         .singlebet-card {
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 12px;
+            padding: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
         .singlebet-info {
             flex: 1;
@@ -199,15 +384,15 @@
             font-weight: 500;
         }
         .friday-summary {
-            margin-top: 16px;
-            padding: 16px;
+            margin-top: 10px;
+            padding: 14px;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
         .friday-summary-item {
             display: flex;
@@ -539,7 +724,7 @@
                 <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
                 <a class="nav-link" href="/members" data-role-only="accountant">Members</a>
                 <a class="nav-link active" href="/fridays" data-role-only="accountant">Fridays</a>
-                <a class="nav-link" href="/hedgesets" data-role-only="accountant">Withdrawable Bets</a>
+                <a class="nav-link" href="/hedgesets" data-role-only="accountant">Sus Bets</a>
             </div>
             <div class="sidebar-odds-toggle">
                 <label class="sidebar-odds-toggle-label">Odds Format</label>
@@ -558,8 +743,7 @@
                 <div id="error-message" class="error-message" style="display: none;"></div>
                 <div id="success-message" class="success-message" style="display: none;"></div>
                 <div id="today-friday-box" class="today-friday-box empty" style="display: none;">
-                    <h2>Today's Lucky Friday</h2>
-                    <div id="today-friday-content"></div>
+                    <div id="today-friday-content" class="today-friday-content"></div>
                 </div>
                 <div class="fridays-list" id="fridays-list">
                     <div class="empty-state">Loading...</div>
@@ -593,9 +777,19 @@
                                 <option value="">Select account...</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="friday-date">Bet Date *</label>
-                            <input type="date" id="friday-date" name="betDateTime" required onchange="validateSection1()" />
+                        <div class="singlebet-form-row datetime">
+                            <div class="form-group">
+                                <label for="friday-date">Bet Date *</label>
+                                <input type="date" id="friday-date" name="betDateTime" required onchange="validateSection1()" />
+                            </div>
+                            <div class="form-group">
+                                <label for="friday-hour">Hour *</label>
+                                <input type="number" id="friday-hour" name="betHour" min="0" max="23" value="0" required onchange="validateSection1()" />
+                            </div>
+                            <div class="form-group">
+                                <label for="friday-minute">Minute *</label>
+                                <input type="number" id="friday-minute" name="betMinute" min="0" max="59" value="0" required onchange="validateSection1()" />
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="friday-deposit">Total Deposit (VND) *</label>
@@ -801,11 +995,11 @@
                         </div>
                     </div>
 
-                    <!-- Section 3: Withdrawable Bets (HedgeSet) -->
+                    <!-- Section 3: Sus Bets (HedgeSet) -->
                     <div class="form-section disabled" id="section-3">
                         <div class="form-section-header" id="section-3-header">
                             <span class="section-number">3</span>
-                            Withdrawable Bets Setup
+                            Sus Bets Setup
                         </div>
                         <div id="hedgeset-container">
                             <div class="hedgeset-form" data-hedgeset-index="0">
@@ -1397,24 +1591,99 @@
             if (todayFriday) {
                 const date = new Date(todayFriday.betDateTime);
                 const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                const endDate = new Date(date);
+                endDate.setHours(endDate.getHours() + 24);
+                const endDateStr = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const endTimeStr = endDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                 const statusClass = todayFriday.status === 0 ? 'running' : todayFriday.status === 1 ? 'eat' : 'lost';
                 const statusText = todayFriday.status === 0 ? 'Running' : todayFriday.status === 1 ? 'Eat' : 'Lost';
                 const globalOddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
                 const oddsValue = globalOddsType === 'int' ? todayFriday.totalOddsInternational.toFixed(4) : todayFriday.totalOddsHongKong.toFixed(4);
+                const oddsLabel = globalOddsType === 'int' ? 'INT Odds' : 'HK Odds';
+                const totalReturn = todayFriday.totalDeposit * todayFriday.totalOddsInternational;
+                
+                const lineupBadges = todayFriday.lineupEntries.length > 0
+                    ? (() => {
+                        const limited = todayFriday.lineupEntries.slice(0, 6).map(le => {
+                            return `<span class="today-lineup-badge">${escapeHtml(le.memberName)}</span>`;
+                        }).join('');
+                        const remaining = todayFriday.lineupEntries.length - 6;
+                        return limited + (remaining > 0 ? `<span class="today-lineup-badge">+${remaining} more</span>` : '');
+                    })()
+                    : '<span class="today-lineup-badge" style="opacity: 0.6;">No lineup data</span>';
+                
+                const highlightedBets = todayFriday.singleBets && todayFriday.singleBets.length > 0
+                    ? todayFriday.singleBets.slice(0, 3).map(sb => {
+                        const sbStatusClass = sb.status === 0 ? 'running' : sb.status === 1 ? 'eat' : 'lost';
+                        const sbStatusText = sb.status === 0 ? 'Running' : sb.status === 1 ? 'Eat' : 'Lost';
+                        const betTime = new Date(sb.matchStartTime).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                        const sbOddsValue = globalOddsType === 'int' ? (sb.oddsInternational || 0).toFixed(4) : (sb.oddsHongKong || 0).toFixed(4);
+                        return `
+                            <div class="today-bet-card">
+                                <div class="today-bet-title">${escapeHtml(sb.title)}</div>
+                                <div class="today-bet-time">${betTime}</div>
+                                <div class="today-bet-odds">Odds: ${sbOddsValue}</div>
+                                <span class="status-badge ${sbStatusClass}" style="margin-top: 6px; align-self: flex-start;">${sbStatusText}</span>
+                            </div>
+                        `;
+                    }).join('')
+                    : '<div class="today-bet-card" style="opacity: 0.6;">No single bets yet</div>';
                 
                 todayBox.classList.remove('empty');
                 todayBox.style.display = 'block';
                 todayContent.innerHTML = `
-                    <div class="today-friday-info">
-                        <div class="today-friday-title">${escapeHtml(dateStr)}</div>
-                        <p class="today-friday-account">${escapeHtml(todayFriday.accountTitle)}</p>
-                        <div style="margin-top: 8px;">
+                    <div class="today-friday-header">
+                        <div>
+                            <h2 class="today-friday-title">
+                                Today's Lucky Friday
+                                <span class="today-friday-account">${escapeHtml(todayFriday.accountTitle)}</span>
+                            </h2>
+                        </div>
+                        <div class="today-status-block">
                             <span class="status-badge ${statusClass}">${statusText}</span>
-                            ${todayFriday.dog ? `<span class="dog-label" style="margin-left: 12px;">Dog:</span><span class="dog-value">${escapeHtml(todayFriday.dog)}</span>` : ''}
                         </div>
                     </div>
-                    <div class="odds-value" style="font-size: 18px; font-weight: 500;">
-                        ${oddsValue}
+                    <div class="today-metrics">
+                        <div class="today-metric">
+                            <div class="today-metric-label">${oddsLabel}</div>
+                            <div class="today-metric-value">${oddsValue}</div>
+                        </div>
+                        <div class="today-metric">
+                            <div class="today-metric-label">Total Deposit</div>
+                            <div class="today-metric-value">${formatCurrency(todayFriday.totalDeposit)}</div>
+                        </div>
+                        <div class="today-metric expected-return">
+                            <div class="today-metric-label">Expected Return</div>
+                            <div class="today-metric-value">${formatCurrency(totalReturn)}</div>
+                        </div>
+                        <div class="today-metric">
+                            <div class="today-metric-label">Dog</div>
+                            <div class="today-metric-value">${todayFriday.dog ? escapeHtml(todayFriday.dog) : 'No dog today'}</div>
+                        </div>
+                    </div>
+                    <div class="today-timeline">
+                        <div class="timeline-node">
+                            <div class="timeline-label">Start</div>
+                            <div class="timeline-value">${escapeHtml(dateStr)} · ${escapeHtml(timeStr)}</div>
+                        </div>
+                        <div class="timeline-divider"></div>
+                        <div class="timeline-node">
+                            <div class="timeline-label">End</div>
+                            <div class="timeline-value">${escapeHtml(endDateStr)} · ${escapeHtml(endTimeStr)}</div>
+                        </div>
+                    </div>
+                    <div class="today-lineup">
+                        <div class="today-section-title">lineup</div>
+                        <div class="today-lineup-list">
+                            ${lineupBadges}
+                        </div>
+                    </div>
+                    <div class="today-bets">
+                        <div class="today-section-title">Single bets</div>
+                        <div class="today-bets-list">
+                            ${highlightedBets}
+                        </div>
                     </div>
                 `;
             } else {
@@ -1428,28 +1697,42 @@
                 return;
             }
 
-            // Sort: current Friday first (but exclude from list if it's today)
-            const otherFridays = fridays.filter(f => !f.isCurrentFriday);
-            otherFridays.sort((a, b) => new Date(b.betDateTime) - new Date(a.betDateTime));
+            // Sort: current Friday first (still include in list)
+            const sortedFridays = [...fridays].sort((a, b) => new Date(b.betDateTime) - new Date(a.betDateTime));
 
             const globalOddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
             
-            list.innerHTML = otherFridays.map(friday => {
+            list.innerHTML = sortedFridays.map(friday => {
                 const date = new Date(friday.betDateTime);
                 const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const hour = date.getHours().toString().padStart(2, '0');
+                const minute = date.getMinutes().toString().padStart(2, '0');
+                const timeStr = `${hour}:${minute}`;
+                
+                // Calculate end time (start + 24 hours)
+                const endDate = new Date(date);
+                endDate.setHours(endDate.getHours() + 24);
+                const endDateStr = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const endHour = endDate.getHours().toString().padStart(2, '0');
+                const endMinute = endDate.getMinutes().toString().padStart(2, '0');
+                const endTimeStr = `${endHour}:${endMinute}`;
+                
                 const statusClass = friday.status === 0 ? 'running' : friday.status === 1 ? 'eat' : 'lost';
                 const statusText = friday.status === 0 ? 'Running' : friday.status === 1 ? 'Eat' : 'Lost';
                 const oddsValue = globalOddsType === 'int' ? friday.totalOddsInternational.toFixed(4) : friday.totalOddsHongKong.toFixed(4);
 
                 return `
-                    <div class="friday-card ${friday.isCurrentFriday ? 'current' : ''}" data-friday-id="${friday.id}">
+                    <div class="friday-card" data-friday-id="${friday.id}">
                         <div class="friday-card-header">
                             <div>
                                 <h3 class="friday-card-title">
-                                    ${escapeHtml(dateStr)}
-                                    ${friday.isCurrentFriday ? '<span class="current-badge">CURRENT</span>' : ''}
+                                    ${escapeHtml(dateStr)} at ${escapeHtml(timeStr)}
                                 </h3>
                                 <p class="friday-card-account">${escapeHtml(friday.accountTitle)}</p>
+                                <div style="margin-top: 8px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);">
+                                    <div style="font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px;">Start: <span style="color: var(--text-muted); font-weight: 400;">${escapeHtml(dateStr)} at ${escapeHtml(timeStr)}</span></div>
+                                    <div style="font-size: 13px; font-weight: 500; color: var(--text);">End: <span style="color: var(--text-muted); font-weight: 400;">${escapeHtml(endDateStr)} at ${escapeHtml(endTimeStr)}</span></div>
+                                </div>
                             </div>
                             <div class="odds-value" style="font-size: 18px; font-weight: 500;">
                                 ${oddsValue}
@@ -1464,14 +1747,9 @@
                                 <div class="lineup-label">Lineup</div>
                                 <div class="lineup-entries">
                                     ${friday.lineupEntries.length > 0 
-                                        ? (() => {
-                                            // Calculate ratio (find minimum amount, divide all by min)
-                                            const minAmount = Math.min(...friday.lineupEntries.map(le => le.amount));
-                                            return friday.lineupEntries.map(le => {
-                                                const ratio = (le.amount / minAmount).toFixed(0);
-                                                return `<span class="lineup-badge">${escapeHtml(le.memberName)} <span class="lineup-amount">${ratio}</span></span>`;
-                                            }).join('');
-                                          })()
+                                        ? friday.lineupEntries.map(le => {
+                                                return `<span class="lineup-badge">${escapeHtml(le.memberName)}</span>`;
+                                            }).join('')
                                         : '<span class="lineup-badge" style="opacity: 0.5;">No lineup</span>'
                                     }
                                 </div>
@@ -1509,8 +1787,8 @@
                             </div>
                             <div class="hedgeset-button">
                                 <button class="btn-hedgeset" ${!friday.hasHedgeSet ? 'disabled' : ''} 
-                                        onclick="${friday.hasHedgeSet ? 'viewHedgeSet(' + friday.id + ')' : ''}">
-                                    Withdrawal bets
+                                        onclick="${friday.hasHedgeSet ? 'viewSusBets(' + friday.id + ')' : ''}">
+                                    Sus bets
                                 </button>
                             </div>
                         </div>
@@ -1540,9 +1818,9 @@
             }
         }
 
-        function viewHedgeSet(fridayId) {
-            // TODO: Implement hedge set view
-            alert('Hedge set view coming soon');
+        function viewSusBets(fridayId) {
+            // Navigate to sus bets page with filter for this Friday's hedge set
+            window.location.href = `/hedgesets?fridayId=${fridayId}`;
         }
 
         let editingFridayId = null;
@@ -1551,7 +1829,10 @@
             editingFridayId = null;
             document.getElementById('modal-title').textContent = 'Create new LuckyFriday';
             document.getElementById('friday-form').reset();
-            document.getElementById('friday-date').valueAsDate = new Date();
+            const now = new Date();
+            document.getElementById('friday-date').valueAsDate = now;
+            document.getElementById('friday-hour').value = now.getHours();
+            document.getElementById('friday-minute').value = now.getMinutes();
             document.getElementById('form-error').style.display = 'none';
             
             // Reset lineup
@@ -1620,12 +1901,114 @@
                 editingFridayId = fridayId;
                 document.getElementById('modal-title').textContent = 'Edit Friday';
                 document.getElementById('friday-account').value = friday.accountId;
-                document.getElementById('friday-date').value = new Date(friday.betDateTime).toISOString().split('T')[0];
-                document.getElementById('friday-odds-hk').value = friday.totalOddsHongKong;
-                document.getElementById('friday-odds-int').value = friday.totalOddsInternational;
+                // Populate form using browser-local timezone (no manual offset math)
+                const betDate = new Date(friday.betDateTime);
+                const year = betDate.getFullYear();
+                const month = (betDate.getMonth() + 1).toString().padStart(2, '0');
+                const day = betDate.getDate().toString().padStart(2, '0');
+                document.getElementById('friday-date').value = `${year}-${month}-${day}`;
+                document.getElementById('friday-hour').value = betDate.getHours();
+                document.getElementById('friday-minute').value = betDate.getMinutes();
                 document.getElementById('friday-deposit').value = friday.totalDeposit;
                 document.getElementById('friday-status').value = friday.status;
                 document.getElementById('friday-dog').value = friday.dog || '';
+                
+                // Load lineup entries
+                lineupEntries = friday.lineupEntries.map(le => ({
+                    memberId: le.memberId,
+                    memberName: le.memberName,
+                    amount: le.amount
+                }));
+                renderLineupList();
+                updateLineupValidation();
+                
+                // Load single bets
+                if (friday.singleBets && friday.singleBets.length >= 3) {
+                    singleBetsData = friday.singleBets.slice(0, 3).map(sb => {
+                        const startDate = new Date(sb.matchStartTime);
+                        const endDate = new Date(sb.matchEndTime);
+                        return {
+                            title: sb.title,
+                            startDate: startDate.toISOString().split('T')[0],
+                            startHour: startDate.getHours(),
+                            startMinute: startDate.getMinutes(),
+                            endDate: endDate.toISOString().split('T')[0],
+                            endHour: endDate.getHours(),
+                            endMinute: endDate.getMinutes(),
+                            oddsHongKong: sb.oddsHongKong,
+                            oddsInternational: sb.oddsInternational,
+                            status: sb.status
+                        };
+                    });
+                    
+                    // Populate single bet forms
+                    singleBetsData.forEach((sb, index) => {
+                        const form = document.querySelector(`.singlebet-form[data-singlebet-index="${index}"]`);
+                        if (form) {
+                            form.querySelector('.singlebet-title').value = sb.title;
+                            form.querySelector('.singlebet-start-date').value = sb.startDate;
+                            form.querySelector('.singlebet-start-hour').value = sb.startHour;
+                            form.querySelector('.singlebet-start-minute').value = sb.startMinute;
+                            form.querySelector('.singlebet-end-date').value = sb.endDate;
+                            form.querySelector('.singlebet-end-hour').value = sb.endHour;
+                            form.querySelector('.singlebet-end-minute').value = sb.endMinute;
+                            form.querySelector('.singlebet-odds').value = getCookie(ODDS_TYPE_COOKIE) === 'int' ? sb.oddsInternational : sb.oddsHongKong;
+                            form.querySelector('.singlebet-status').value = sb.status;
+                            
+                            // Update odds to ensure both HK and INT are stored
+                            updateSingleBetOdds(index);
+                        }
+                    });
+                    
+                    updateOddsCalculation();
+                    validateSection2();
+                }
+                
+                // Load hedge set if exists
+                if (friday.hedgeSet && friday.hedgeSet.singleBets && friday.hedgeSet.singleBets.length >= 2) {
+                    hedgeBetsData = friday.hedgeSet.singleBets.slice(0, 2).map(hb => {
+                        const startDate = new Date(hb.matchStartTime);
+                        const endDate = new Date(hb.matchEndTime);
+                        return {
+                            title: hb.title,
+                            startDate: startDate.toISOString().split('T')[0],
+                            startHour: startDate.getHours(),
+                            startMinute: startDate.getMinutes(),
+                            endDate: endDate.toISOString().split('T')[0],
+                            endHour: endDate.getHours(),
+                            endMinute: endDate.getMinutes(),
+                            oddsHongKong: hb.oddsHongKong,
+                            oddsInternational: hb.oddsInternational,
+                            status: hb.status
+                        };
+                    });
+                    
+                    // Populate hedge bet forms
+                    hedgeBetsData.forEach((hb, index) => {
+                        const form = document.querySelector(`.hedgeset-form[data-hedgeset-index="${index}"]`);
+                        if (form) {
+                            form.querySelector('.hedgeset-title').value = hb.title;
+                            form.querySelector('.hedgeset-start-date').value = hb.startDate;
+                            form.querySelector('.hedgeset-start-hour').value = hb.startHour;
+                            form.querySelector('.hedgeset-start-minute').value = hb.startMinute;
+                            form.querySelector('.hedgeset-end-date').value = hb.endDate;
+                            form.querySelector('.hedgeset-end-hour').value = hb.endHour;
+                            form.querySelector('.hedgeset-end-minute').value = hb.endMinute;
+                            form.querySelector('.hedgeset-odds').value = getCookie(ODDS_TYPE_COOKIE) === 'int' ? hb.oddsInternational : hb.oddsHongKong;
+                            form.querySelector('.hedgeset-status').value = hb.status;
+                            
+                            // Update odds to ensure both HK and INT are stored
+                            updateHedgeBetOdds(index);
+                        }
+                    });
+                    
+                    validateSection3();
+                }
+                
+                // Enable all sections for edit mode
+                document.getElementById('section-2').classList.remove('disabled');
+                document.getElementById('section-3').classList.remove('disabled');
+                
                 document.getElementById('form-error').style.display = 'none';
                 document.getElementById('friday-modal').classList.add('active');
             } catch (error) {
@@ -1638,26 +2021,113 @@
             editingFridayId = null;
         }
 
+        function getBetDateTimeString() {
+            const dateStr = document.getElementById('friday-date').value;
+            const hour = parseInt(document.getElementById('friday-hour').value) || 0;
+            const minute = parseInt(document.getElementById('friday-minute').value) || 0;
+            if (!dateStr) {
+                return null;
+            }
+            const paddedHour = hour.toString().padStart(2, '0');
+            const paddedMinute = minute.toString().padStart(2, '0');
+            return `${dateStr}T${paddedHour}:${paddedMinute}:00`;
+        }
+
         async function handleSubmit(event) {
             event.preventDefault();
             const errorDiv = document.getElementById('form-error');
             
             if (editingFridayId) {
-                // Update logic (keep existing for now - simplified)
-                let formData = {
-                    accountId: parseInt(document.getElementById('friday-account').value),
-                    betDateTime: new Date(document.getElementById('friday-date').value + 'T00:00:00'),
-                    totalDeposit: parseFloat(document.getElementById('friday-deposit').value),
-                    status: parseInt(document.getElementById('friday-status').value),
-                    dog: document.getElementById('friday-dog').value.trim() || null
-                };
-
-                if (formData.totalDeposit < 0.01 || formData.totalDeposit >= 8100000) {
-                    errorDiv.textContent = 'Total Deposit must be between 0.01 and 8,099,999.99';
+                // Update logic - validate all sections first
+                if (lineupEntries.length === 0) {
+                    errorDiv.textContent = 'Lineup is required. Please add at least one member.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                
+                const totalDeposit = parseFloat(document.getElementById('friday-deposit').value);
+                const lineupTotal = lineupEntries.reduce((sum, e) => sum + e.amount, 0);
+                
+                if (Math.abs(lineupTotal - totalDeposit) >= 0.01) {
+                    errorDiv.textContent = `Lineup total (${formatCurrency(lineupTotal)}) must equal Total Deposit (${formatCurrency(totalDeposit)})`;
                     errorDiv.style.display = 'block';
                     return;
                 }
 
+                if (totalDeposit < 0.01 || totalDeposit >= 8100000) {
+                    errorDiv.textContent = 'Total Deposit must be between 0.01 and 8,099,999.99';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                
+                // Validate single bets
+                if (singleBetsData.length !== 3) {
+                    errorDiv.textContent = 'Please fill in all 3 single bets.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                
+                for (let i = 0; i < 3; i++) {
+                    if (!validateSingleBet(i)) {
+                        errorDiv.textContent = `Please complete Single Bet ${i + 1}.`;
+                        errorDiv.style.display = 'block';
+                        return;
+                    }
+                }
+                
+                // Calculate total odds from singlebets
+                const totalOddsINT = singleBetsData.reduce((product, sb) => product * (sb.oddsInternational || 1), 1);
+                const totalOddsHK = totalOddsINT - 1;
+                
+                const dateStr = document.getElementById('friday-date').value;
+                const betDateTimeString = getBetDateTimeString();
+                if (!betDateTimeString) {
+                    errorDiv.textContent = 'Bet date is required.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                
+                let formData = {
+                    accountId: parseInt(document.getElementById('friday-account').value),
+                    betDateTime: betDateTimeString,
+                    totalOddsHongKong: totalOddsHK,
+                    totalOddsInternational: totalOddsINT,
+                    totalDeposit: totalDeposit,
+                    status: parseInt(document.getElementById('friday-status').value),
+                    dog: document.getElementById('friday-dog').value.trim() || null,
+                    lineupEntries: lineupEntries.map(e => ({
+                        memberId: e.memberId,
+                        amount: e.amount
+                    })),
+                    singleBets: singleBetsData.map(sb => ({
+                        title: sb.title,
+                        matchStartTime: sb.matchStartTime,
+                        matchEndTime: sb.matchEndTime,
+                        oddsHongKong: sb.oddsHongKong,
+                        oddsInternational: sb.oddsInternational,
+                        status: sb.status
+                    }))
+                };
+                
+                // Add hedge set if provided
+                if (hedgeBetsData.length === 2 && hedgeBetsData.every((hb, i) => validateHedgeBet(i))) {
+                    formData.hedgeSet = {
+                        title: `Sus bets for ${dateStr}`,
+                        budget: totalDeposit * 2,
+                        singleBets: hedgeBetsData.map(hb => ({
+                            title: hb.title,
+                            matchStartTime: hb.matchStartTime,
+                            matchEndTime: hb.matchEndTime,
+                            oddsHongKong: hb.oddsHongKong,
+                            oddsInternational: hb.oddsInternational,
+                            status: hb.status
+                        }))
+                    };
+                }
+
+                // Debug: log formData to see what's being sent
+                console.log('Updating Friday with data:', JSON.stringify(formData, null, 2));
+                
                 try {
                     const response = await fetch(`/api/fridays/${editingFridayId}`, {
                         method: 'PUT',
@@ -1728,9 +2198,17 @@
             const totalOddsINT = singleBetsData.reduce((product, sb) => product * (sb.oddsInternational || 1), 1);
             const totalOddsHK = totalOddsINT - 1;
             
+            const dateStr = document.getElementById('friday-date').value;
+            const betDateTimeString = getBetDateTimeString();
+            if (!betDateTimeString) {
+                errorDiv.textContent = 'Bet date is required.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
             const formData = {
                 accountId: parseInt(document.getElementById('friday-account').value),
-                betDateTime: new Date(document.getElementById('friday-date').value + 'T00:00:00'),
+                betDateTime: betDateTimeString,
                 totalOddsHongKong: totalOddsHK,
                 totalOddsInternational: totalOddsINT,
                 totalDeposit: totalDeposit,
@@ -1749,7 +2227,7 @@
                     status: sb.status
                 })),
                 hedgeSet: {
-                    title: `Withdrawal bets for ${document.getElementById('friday-date').value}`,
+                    title: `Sus bets for ${document.getElementById('friday-date').value}`,
                     budget: totalDeposit * 2,
                     singleBets: hedgeBetsData.map(hb => ({
                         title: hb.title,
