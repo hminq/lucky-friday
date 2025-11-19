@@ -6,10 +6,11 @@ public class LuckyFridayDbContext : DbContext
 {
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Member> Members { get; set; }
+    public DbSet<HedgeSet> HedgeSets { get; set; }
+    public DbSet<HedgeSetLineupEntry> HedgeSetLineupEntries { get; set; }
     public DbSet<SingleBet> SingleBets { get; set; }
     public DbSet<Friday> Fridays { get; set; }
     public DbSet<LineupEntry> LineupEntries { get; set; }
-    public DbSet<HedgeSet> HedgeSets { get; set; }
 
     public LuckyFridayDbContext(DbContextOptions<LuckyFridayDbContext> options)
         : base(options) { }
@@ -37,11 +38,11 @@ public class LuckyFridayDbContext : DbContext
             .HasForeignKey(le => le.FridayId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Friday - HedgeSet: 1-1 relationship
+        // Friday - HedgeSet: 1-n relationship
         modelBuilder.Entity<Friday>()
-            .HasOne(f => f.HedgeSet)
+            .HasMany(f => f.HedgeSets)
             .WithOne(hs => hs.Friday)
-            .HasForeignKey<HedgeSet>(hs => hs.FridayId)
+            .HasForeignKey(hs => hs.FridayId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(false);
 

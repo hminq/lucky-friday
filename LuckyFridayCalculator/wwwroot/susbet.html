@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sus Bet Detail · Lucky Friday</title>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <style>
+        /* SusBet-specific styles */
+        .susbet-container {
+            max-width: 1200px;
+            /* Increased width for side-by-side */
+            margin: 0 auto;
+        }
+
+        .susbet-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .susbet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .susbet-title-group h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0 0 4px 0;
+        }
+
+        .susbet-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .susbet-budget {
+            text-align: right;
+        }
+
+        .susbet-budget-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .susbet-budget-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Grid for side-by-side bets */
+        #bets-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .singlebet-form {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .singlebet-form-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .singlebet-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .singlebet-form-row.datetime {
+            grid-template-columns: 1.5fr 0.8fr 0.8fr;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            height: 38px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* Return Display Styles */
+        .bet-return-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .bet-return-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .bet-return-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            /* Default black/text color */
+            transition: color 0.3s ease;
+        }
+
+        .bet-return-value.win {
+            color: #10b981;
+            /* Green */
+        }
+
+        .bet-return-value.lost {
+            color: #ef4444;
+            /* Red */
+        }
+
+        .bet-return-value.draw {
+            color: #eab308;
+            /* Yellow */
+        }
+
+        /* Lineup Breakdown Styles */
+        .bet-lineup-list {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bet-lineup-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bet-lineup-item:last-child {
+            border-bottom: none;
+        }
+
+        .bet-lineup-name {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .bet-lineup-amount {
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 768px) {
+            #bets-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-title">Ditmemay1xbet</div>
+        <div class="header-center">
+            <div class="role-toggle" role="group" aria-label="Role selector">
+                <button id="role-accountant" type="button" class="active" data-role="accountant">Accountant</button>
+                <button id="role-bet" type="button" data-role="bet">Bet Master</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="theme-toggle" role="group" aria-label="Theme selector">
+                <button id="theme-light" type="button" class="active">
+                    <img src="/imgs/icons/ic_sun.png" alt="Light mode" />
+                </button>
+                <button id="theme-dark" type="button">
+                    <img src="/imgs/icons/ic_moon.png" alt="Dark mode" />
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="layout">
+        <aside class="sidebar">
+            <nav>
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+            </nav>
+            <div class="sidebar-section" data-role-section="accountant">
+                <p class="sidebar-title">ACCOUNTANT</p>
+                <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
+                <a class="nav-link" href="/members" data-role-only="accountant">Members</a>
+                <a class="nav-link" href="/fridays" data-role-only="accountant">Fridays</a>
+            </div>
+            <div class="sidebar-odds-toggle">
+                <label class="sidebar-odds-toggle-label">Odds Format</label>
+                <div class="odds-toggle">
+                    <button type="button" id="global-odds-hk" class="odds-btn active"
+                        onclick="setGlobalOddsType('hk')">HK</button>
+                    <button type="button" id="global-odds-int" class="odds-btn"
+                        onclick="setGlobalOddsType('int')">INT</button>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <div class="susbet-container" data-role-only="accountant">
+                <div class="page-header">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <a href="/fridays" class="btn-secondary"
+                            style="text-decoration: none; display: inline-flex; align-items: center; padding: 8px 12px;">&larr;
+                            Back</a>
+                        <h1>Sus Bet Details</h1>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+                <div id="success-message" class="success-message" style="display: none;"></div>
+
+                <div id="loading-state" class="empty-state">Loading...</div>
+
+                <div id="susbet-content" style="display: none;">
+                    <form id="susbet-form" onsubmit="handleSubmit(event)">
+                        <div id="hedgesets-container">
+                            <!-- Hedge Sets will be injected here -->
+                        </div>
+
+                        <div class="action-bar" style="justify-content: space-between;">
+                            <button type="button" class="btn-secondary" onclick="addHedgeSet()"
+                                style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 18px; font-weight: bold;">+</span> Add Withdrawable Bet
+                            </button>
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="bet-master-content" data-role-only="bet" style="display: none;">
+                <div class="empty-state" style="padding: 48px; text-align: center;">
+                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master
+                        View</h2>
+                    <p style="color: var(--text-muted);">Switch to Accountant role to manage Sus Bets.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const root = document.documentElement;
+        const lightBtn = document.getElementById('theme-light');
+        const darkBtn = document.getElementById('theme-dark');
+        const roleAccountantBtn = document.getElementById('role-accountant');
+        const roleBetBtn = document.getElementById('role-bet');
+        const accountantSections = document.querySelectorAll('[data-role-section="accountant"], [data-role-only="accountant"]');
+
+        const ROLE_COOKIE = 'lf_role';
+        const THEME_COOKIE = 'lf_theme';
+        const ODDS_TYPE_COOKIE = 'lf_odds_type';
+
+        // --- Shared logic (Cookie, Theme, Role) ---
+        function setCookie(name, value, days = 365) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ').find(row => row.startsWith(`${name}=`))?.split('=')[1];
+        }
+
+        function setTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            if (theme === 'light') {
+                lightBtn.classList.add('active');
+                darkBtn.classList.remove('active');
+            } else {
+                darkBtn.classList.add('active');
+                lightBtn.classList.remove('active');
+            }
+            setCookie(THEME_COOKIE, theme);
+        }
+
+        function setRole(role) {
+            const isAccountant = role === 'accountant';
+            roleAccountantBtn.classList.toggle('active', isAccountant);
+            roleBetBtn.classList.toggle('active', !isAccountant);
+            accountantSections.forEach(section => {
+                section.classList.toggle('hidden', !isAccountant);
+            });
+
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                const accountantContent = mainContent.querySelectorAll('[data-role-only="accountant"]');
+                const betContent = mainContent.querySelectorAll('[data-role-only="bet"]');
+
+                accountantContent.forEach(el => {
+                    el.style.display = isAccountant ? '' : 'none';
+                });
+                betContent.forEach(el => {
+                    el.style.display = isAccountant ? 'none' : '';
+                });
+            }
+            setCookie(ROLE_COOKIE, role);
+        }
+
+        function setGlobalOddsType(type) {
+            const hkBtn = document.getElementById('global-odds-hk');
+            const intBtn = document.getElementById('global-odds-int');
+
+            hkBtn.classList.toggle('active', type === 'hk');
+            intBtn.classList.toggle('active', type === 'int');
+
+            setCookie(ODDS_TYPE_COOKIE, type);
+            updateOddsLabels();
+
+            // Recalculate all bets when odds type changes
+            // Recalculate all bets when odds type changes
+            if (currentHedgeSets && currentHedgeSets.length > 0) {
+                currentHedgeSets.forEach((hs, hsIndex) => {
+                    if (hs.singleBets) {
+                        hs.singleBets.forEach((bet, betIndex) => {
+                            // Find the form for this specific bet
+                            const form = document.querySelector(`.singlebet-form[data-bet-index="${betIndex}"][data-hedgeset-index="${hsIndex}"]`);
+                            if (form) {
+                                const oddsInput = form.querySelector(`input[name="hs_${hsIndex}_bet_${betIndex}_odds"]`);
+                                if (oddsInput) {
+                                    const newOdds = type === 'int' ? bet.oddsInternational : bet.oddsHongKong;
+                                    oddsInput.value = newOdds;
+                                    updateBetCalculation(betIndex, hsIndex);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        lightBtn.addEventListener('click', () => setTheme('light'));
+        darkBtn.addEventListener('click', () => setTheme('dark'));
+        roleAccountantBtn.addEventListener('click', () => setRole('accountant'));
+        roleBetBtn.addEventListener('click', () => setRole('bet'));
+
+        const savedTheme = getCookie(THEME_COOKIE) || 'light';
+        const savedRole = getCookie(ROLE_COOKIE) || 'accountant';
+        const savedOddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
+
+        // --- Page Specific Logic ---
+        let currentHedgeSets = [];
+        let currentFridayId = null;
+        let currentFridayData = null; // Store full friday data for lineup info
+
+        async function loadSusBet() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fridayId = urlParams.get('fridayId');
+
+            if (!fridayId) {
+                showError('No Friday ID provided');
+                document.getElementById('loading-state').style.display = 'none';
+                return;
+            }
+            currentFridayId = fridayId;
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
+            try {
+                console.log('Starting fetch for Friday ID:', fridayId);
+                const fridayResponse = await fetch(`/api/fridays/${fridayId}`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (!fridayResponse.ok) {
+                    throw new Error(`Server returned ${fridayResponse.status} ${fridayResponse.statusText}`);
+                }
+
+                const friday = await fridayResponse.json();
+                console.log('Friday data received:', friday);
+
+                currentFridayData = friday;
+                // Handle both legacy single HedgeSet and new multiple HedgeSets
+                if (friday.hedgeSets && friday.hedgeSets.length > 0) {
+                    currentHedgeSets = friday.hedgeSets;
+                } else if (friday.hedgeSet) {
+                    currentHedgeSets = [friday.hedgeSet];
+                } else {
+                    currentHedgeSets = [];
+                }
+
+                try {
+                    renderSusBet();
+                    document.getElementById('susbet-content').style.display = 'block';
+                } catch (renderError) {
+                    console.error('Error rendering Sus Bet:', renderError);
+                    throw new Error('Failed to render page: ' + renderError.message);
+                }
+
+            } catch (error) {
+                console.error('Load failed:', error);
+                if (error.name === 'AbortError') {
+                    showError('Loading timed out. The server is taking too long to respond.');
+                } else {
+                    showError('Failed to load data: ' + error.message);
+                }
+            } finally {
+                document.getElementById('loading-state').style.display = 'none';
+            }
+        }
+
+        function renderSusBet() {
+            const container = document.getElementById('hedgesets-container');
+            container.innerHTML = '';
+
+            if (currentHedgeSets.length === 0) {
+                container.innerHTML = '<div class="empty-state">No Hedge Sets found. Click "Add Hedge Set" to create one.</div>';
+            } else {
+                currentHedgeSets.forEach((hedgeSet, index) => {
+                    container.innerHTML += renderHedgeSetCard(hedgeSet, index);
+                });
+            }
+
+            updateOddsLabels();
+
+            // Initial calculation for all bets
+            currentHedgeSets.forEach((hs, hsIndex) => {
+                hs.singleBets.forEach((_, betIndex) => updateBetCalculation(betIndex, hsIndex));
+                // Also update lineup total display if needed (though it's static for now unless edited)
+            });
+        }
+
+        function renderHedgeSetCard(hedgeSet, index) {
+            const date = new Date(currentFridayData.betDateTime);
+            const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+            // Generate Lineup Editor HTML
+            const lineupHtml = renderLineupEditor(hedgeSet, index);
+
+            // Generate Bets HTML
+            const betsHtml = (hedgeSet.singleBets || []).map((bet, betIndex) => renderBetForm(bet, betIndex, index)).join('');
+
+            return `
+                <div class="susbet-card" data-hedgeset-index="${index}">
+                    <div class="susbet-header">
+                        <div class="susbet-title-group">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="text" name="hs_title_${index}" value="${escapeHtml(hedgeSet.title)}" 
+                                    class="form-control" style="font-size: 20px; font-weight: 600; width: 300px;" 
+                                    placeholder="Hedge Set Title" required />
+                                <button type="button" class="btn-icon" onclick="removeHedgeSet(${index})" style="color: #ef4444;" title="Remove Hedge Set">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                            <div class="susbet-subtitle" style="margin-top: 8px;">${dateStr} · ${currentFridayData.accountTitle}</div>
+                        </div>
+                        <div class="susbet-budget">
+                            <div class="susbet-budget-label">Budget</div>
+                            <div class="susbet-budget-value" id="hs-budget-${index}">${formatCurrency(hedgeSet.budget)}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Lineup & Budget</h3>
+                        ${lineupHtml}
+                    </div>
+
+                    <div id="bets-container-${index}" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        ${betsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLineupEditor(hedgeSet, hsIndex) {
+            // If lineupEntries is missing (legacy), init from Friday
+            const entries = hedgeSet.lineupEntries && hedgeSet.lineupEntries.length > 0
+                ? hedgeSet.lineupEntries
+                : currentFridayData.lineupEntries.map(le => ({ ...le, amount: le.amount })); // Deep copy-ish
+
+            // We need to ensure we have the member names. 
+            // If loaded from HedgeSetLineupEntry, we might need to map memberId to name if not populated.
+            // The DTO should have MemberName.
+
+            return `
+                <div class="lineup-list" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border); padding: 12px; border-radius: var(--radius-sm);">
+                    ${entries.map((entry, leIndex) => `
+                        <div class="lineup-item" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid var(--border);">
+                            <span class="lineup-item-name" style="font-size: 13px; font-weight: 500;">${escapeHtml(entry.memberName || getMemberName(entry.memberId))}</span>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="number" name="hs_${hsIndex}_le_${leIndex}_amount" 
+                                    value="${entry.amount}" 
+                                    data-member-id="${entry.memberId}"
+                                    class="form-control" style="width: 100px; text-align: right; padding: 4px;"
+                                    onchange="updateHedgeSetBudget(${hsIndex})" onkeyup="updateHedgeSetBudget(${hsIndex})" />
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function getMemberName(memberId) {
+            const member = currentFridayData.lineupEntries.find(le => le.memberId === memberId);
+            return member ? member.memberName : 'Unknown';
+        }
+
+        function renderBetForm(bet, index, hsIndex) {
+            const startDate = new Date(bet.matchStartTime);
+            const endDate = new Date(bet.matchEndTime);
+            const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
+            const oddsValue = oddsType === 'int' ? bet.oddsInternational : bet.oddsHongKong;
+
+            // Get lineup entries for this hedge set
+            const hedgeSet = currentHedgeSets[hsIndex];
+            const entries = hedgeSet.lineupEntries && hedgeSet.lineupEntries.length > 0
+                ? hedgeSet.lineupEntries
+                : currentFridayData.lineupEntries; // Fallback if not init (should be init by renderLineupEditor logic though)
+
+            // Generate lineup breakdown HTML structure
+            const lineupHtml = entries.map(le => `
+                <div class="bet-lineup-item" data-member-id="${le.memberId}">
+                    <span class="bet-lineup-name">${escapeHtml(le.memberName || getMemberName(le.memberId))}</span>
+                    <span class="bet-lineup-amount" id="hs-${hsIndex}-bet-${index}-member-${le.memberId}">...</span>
+                </div>
+            `).join('');
+
+            return `
+                <div class="singlebet-form" data-bet-index="${index}" data-hedgeset-index="${hsIndex}">
+                    <div class="singlebet-form-header">Bet ${index + 1}</div>
+                    <input type="hidden" name="hs_${hsIndex}_bet_${index}_id" value="${bet.id || ''}" />
+                    
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label>Title</label>
+                        <input type="text" name="hs_${hsIndex}_bet_${index}_title" value="${escapeHtml(bet.title)}" required maxlength="250" />
+                    </div>
+                    
+                    <div class="singlebet-form-row datetime">
+                        <div class="form-group">
+                            <label>Start</label>
+                            <input type="date" name="hs_${hsIndex}_bet_${index}_startDate" value="${startDate.toISOString().split('T')[0]}" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Hr</label>
+                            <input type="number" name="hs_${hsIndex}_bet_${index}_startHour" value="${startDate.getHours()}" min="0" max="23" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Min</label>
+                            <input type="number" name="hs_${hsIndex}_bet_${index}_startMinute" value="${startDate.getMinutes()}" min="0" max="59" required />
+                        </div>
+                    </div>
+                    <div class="singlebet-form-row datetime">
+                        <div class="form-group">
+                            <label>End</label>
+                            <input type="date" name="hs_${hsIndex}_bet_${index}_endDate" value="${endDate.toISOString().split('T')[0]}" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Hr</label>
+                            <input type="number" name="hs_${hsIndex}_bet_${index}_endHour" value="${endDate.getHours()}" min="0" max="23" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Min</label>
+                            <input type="number" name="hs_${hsIndex}_bet_${index}_endMinute" value="${endDate.getMinutes()}" min="0" max="59" required />
+                        </div>
+                    </div>
+                    
+                    <div class="singlebet-form-row">
+                        <div class="form-group">
+                            <label>Odds (<span class="odds-label">HK</span>)</label>
+                            <input type="number" name="hs_${hsIndex}_bet_${index}_odds" value="${oddsValue}" step="0.0001" min="0" required onchange="updateBetCalculation(${index}, ${hsIndex})" onkeyup="updateBetCalculation(${index}, ${hsIndex})" />
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="hs_${hsIndex}_bet_${index}_status" onchange="updateBetCalculation(${index}, ${hsIndex})">
+                                <option value="0" ${bet.status === 0 ? 'selected' : ''}>Running</option>
+                                <option value="1" ${bet.status === 1 ? 'selected' : ''}>Eat</option>
+                                <option value="2" ${bet.status === 2 ? 'selected' : ''}>Lost</option>
+                                <option value="3" ${bet.status === 3 ? 'selected' : ''}>Draw</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="bet-return-section">
+                        <div class="bet-return-label">Total Return</div>
+                        <div class="bet-return-value" id="hs-${hsIndex}-bet-${index}-return">...</div>
+                        
+                        <div class="bet-lineup-list">
+                            ${lineupHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateBetCalculation(betIndex, hsIndex) {
+            if (!currentHedgeSets[hsIndex]) return;
+
+            const form = document.querySelector(`.singlebet-form[data-bet-index="${betIndex}"][data-hedgeset-index="${hsIndex}"]`);
+            if (!form) return;
+
+            const oddsInput = form.querySelector(`input[name="hs_${hsIndex}_bet_${betIndex}_odds"]`);
+            const statusSelect = form.querySelector(`select[name="hs_${hsIndex}_bet_${betIndex}_status"]`);
+
+            const oddsVal = parseFloat(oddsInput.value) || 0;
+            const status = parseInt(statusSelect.value);
+            const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
+
+            // Calculate Stake Per Bet (Budget / 2)
+            // Budget is dynamic now based on lineup inputs
+            const budget = calculateHedgeSetBudget(hsIndex);
+            const stakePerBet = budget / 2;
+
+            let totalReturn = 0;
+            let returnClass = '';
+
+            if (status === 0) { // Running
+                totalReturn = stakePerBet;
+                returnClass = ''; // Default black
+            } else if (status === 2) { // Lost
+                totalReturn = 0;
+                returnClass = 'lost';
+            } else if (status === 1) { // Eat
+                let multiplier = 1;
+                if (oddsType === 'hk') {
+                    multiplier = 1 + oddsVal;
+                } else {
+                    multiplier = oddsVal;
+                }
+                totalReturn = stakePerBet * multiplier;
+                returnClass = 'win';
+            } else if (status === 3) { // Draw
+                totalReturn = stakePerBet; // Refund stake
+                returnClass = 'draw';
+            }
+
+            // Update Total Return UI
+            const returnEl = document.getElementById(`hs-${hsIndex}-bet-${betIndex}-return`);
+            if (returnEl) {
+                returnEl.textContent = formatCurrency(totalReturn);
+                returnEl.className = 'bet-return-value ' + returnClass;
+            }
+
+            // Update Member Breakdown
+            // Formula: MemberReturn = (MemberContribution / TotalBudget) * TotalReturn
+            // Note: TotalBudget here is the HedgeSet Budget
+
+            // Get current lineup amounts from inputs
+            const lineupInputs = document.querySelectorAll(`input[name^="hs_${hsIndex}_le_"]`);
+
+            lineupInputs.forEach(input => {
+                const memberId = input.dataset.memberId;
+                const amount = parseFloat(input.value) || 0;
+
+                let memberReturn = 0;
+                if (budget > 0) {
+                    memberReturn = (amount / budget) * totalReturn;
+                }
+
+                const memberReturnEl = document.getElementById(`hs-${hsIndex}-bet-${betIndex}-member-${memberId}`);
+                if (memberReturnEl) {
+                    memberReturnEl.textContent = formatCurrency(memberReturn);
+                }
+            });
+        }
+
+        function calculateHedgeSetBudget(hsIndex) {
+            let total = 0;
+            const inputs = document.querySelectorAll(`input[name^="hs_${hsIndex}_le_"]`);
+            inputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            return total;
+        }
+
+        function updateHedgeSetBudget(hsIndex) {
+            const total = calculateHedgeSetBudget(hsIndex);
+            const budgetEl = document.getElementById(`hs-budget-${hsIndex}`);
+            if (budgetEl) {
+                budgetEl.textContent = formatCurrency(total);
+            }
+
+            // Recalculate bets because stake depends on budget
+            currentHedgeSets[hsIndex].singleBets.forEach((_, betIndex) => {
+                updateBetCalculation(betIndex, hsIndex);
+            });
+        }
+
+        function updateOddsLabels() {
+            const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
+            const label = oddsType === 'hk' ? 'HK' : 'INT';
+            document.querySelectorAll('.odds-label').forEach(el => el.textContent = label);
+        }
+
+        function addHedgeSet() {
+            // Create default hedge set
+            const defaultLineup = currentFridayData.lineupEntries.map(le => ({
+                memberId: le.memberId,
+                memberName: le.memberName,
+                amount: le.amount
+            }));
+
+            const defaultBudget = defaultLineup.reduce((sum, item) => sum + item.amount, 0);
+
+            const newHedgeSet = {
+                id: 0, // New
+                title: `Hedge Set ${currentHedgeSets.length + 1}`,
+                budget: defaultBudget,
+                lineupEntries: defaultLineup,
+                singleBets: [
+                    {
+                        id: 0,
+                        title: 'Bet 1',
+                        matchStartTime: new Date().toISOString(),
+                        matchEndTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
+                        oddsHongKong: 0,
+                        oddsInternational: 0,
+                        status: 0
+                    },
+                    {
+                        id: 0,
+                        title: 'Bet 2',
+                        matchStartTime: new Date().toISOString(),
+                        matchEndTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
+                        oddsHongKong: 0,
+                        oddsInternational: 0,
+                        status: 0
+                    }
+                ]
+            };
+
+            currentHedgeSets.push(newHedgeSet);
+            renderSusBet();
+        }
+
+        function removeHedgeSet(index) {
+            if (!confirm('Are you sure you want to remove this Hedge Set?')) return;
+
+            currentHedgeSets.splice(index, 1);
+            renderSusBet();
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            if (!currentFridayId) return;
+
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            try {
+                const form = event.target;
+                const formData = new FormData(form);
+                const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
+
+                const hedgeSetsPayload = currentHedgeSets.map((hs, hsIndex) => {
+                    // Gather Lineup Entries
+                    const lineupEntries = [];
+                    const lineupInputs = document.querySelectorAll(`input[name^="hs_${hsIndex}_le_"]`);
+                    lineupInputs.forEach(input => {
+                        lineupEntries.push({
+                            memberId: parseInt(input.dataset.memberId),
+                            amount: parseFloat(input.value) || 0
+                        });
+                    });
+
+                    // Gather Bets
+                    const singleBets = [];
+                    for (let i = 0; i < 2; i++) {
+                        const betId = parseInt(formData.get(`hs_${hsIndex}_bet_${i}_id`)) || 0;
+                        const title = formData.get(`hs_${hsIndex}_bet_${i}_title`);
+
+                        const startDate = formData.get(`hs_${hsIndex}_bet_${i}_startDate`);
+                        const startHour = formData.get(`hs_${hsIndex}_bet_${i}_startHour`);
+                        const startMinute = formData.get(`hs_${hsIndex}_bet_${i}_startMinute`);
+                        const startDateTime = new Date(`${startDate}T${startHour.padStart(2, '0')}:${startMinute.padStart(2, '0')}:00`);
+
+                        const endDate = formData.get(`hs_${hsIndex}_bet_${i}_endDate`);
+                        const endHour = formData.get(`hs_${hsIndex}_bet_${i}_endHour`);
+                        const endMinute = formData.get(`hs_${hsIndex}_bet_${i}_endMinute`);
+                        const endDateTime = new Date(`${endDate}T${endHour.padStart(2, '0')}:${endMinute.padStart(2, '0')}:00`);
+
+                        const oddsVal = parseFloat(formData.get(`hs_${hsIndex}_bet_${i}_odds`));
+                        const status = parseInt(formData.get(`hs_${hsIndex}_bet_${i}_status`));
+
+                        let oddsHK = 0;
+                        let oddsInt = 0;
+
+                        if (oddsType === 'hk') {
+                            oddsHK = oddsVal;
+                            oddsInt = oddsVal + 1;
+                        } else {
+                            oddsInt = oddsVal;
+                            oddsHK = oddsVal - 1;
+                        }
+
+                        singleBets.push({
+                            id: betId,
+                            title: title,
+                            matchStartTime: startDateTime.toISOString(),
+                            matchEndTime: endDateTime.toISOString(),
+                            oddsHongKong: oddsHK,
+                            oddsInternational: oddsInt,
+                            status: status
+                        });
+                    }
+
+                    return {
+                        id: hs.id || 0,
+                        title: formData.get(`hs_title_${hsIndex}`),
+                        budget: calculateHedgeSetBudget(hsIndex),
+                        lineupEntries: lineupEntries,
+                        singleBets: singleBets
+                    };
+                });
+
+                const payload = {
+                    id: parseInt(currentFridayId),
+                    betDateTime: currentFridayData.betDateTime, // Required by DTO but not changed here
+                    totalDeposit: currentFridayData.totalDeposit, // Required by DTO
+                    hedgeSets: hedgeSetsPayload
+                };
+
+                console.log('Sending payload:', payload);
+
+                const response = await fetch(`/api/fridays/${currentFridayId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to update Sus Bets');
+                }
+
+                showSuccess('Sus Bets updated successfully');
+                loadSusBet();
+
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success-message');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        setTheme(savedTheme);
+        setRole(savedRole);
+        setGlobalOddsType(savedOddsType);
+
+        loadSusBet();
+    </script>
+</body>
+
+</html>

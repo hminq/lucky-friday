@@ -4,6 +4,7 @@ using LuckyFridayCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LuckyFridayCalculator.Migrations
 {
     [DbContext(typeof(LuckyFridayDbContext))]
-    partial class LuckyFridayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251119160333_SupportMultipleHedgeSets")]
+    partial class SupportMultipleHedgeSets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,32 +119,6 @@ namespace LuckyFridayCalculator.Migrations
                     b.HasIndex("FridayId");
 
                     b.ToTable("HedgeSets");
-                });
-
-            modelBuilder.Entity("LuckyFridayCalculator.Models.HedgeSetLineupEntry", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("HedgeSetId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HedgeSetId");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("HedgeSetLineupEntries");
                 });
 
             modelBuilder.Entity("LuckyFridayCalculator.Models.LineupEntry", b =>
@@ -252,25 +229,6 @@ namespace LuckyFridayCalculator.Migrations
                     b.Navigation("Friday");
                 });
 
-            modelBuilder.Entity("LuckyFridayCalculator.Models.HedgeSetLineupEntry", b =>
-                {
-                    b.HasOne("LuckyFridayCalculator.Models.HedgeSet", "HedgeSet")
-                        .WithMany("LineupEntries")
-                        .HasForeignKey("HedgeSetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LuckyFridayCalculator.Models.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HedgeSet");
-
-                    b.Navigation("Member");
-                });
-
             modelBuilder.Entity("LuckyFridayCalculator.Models.LineupEntry", b =>
                 {
                     b.HasOne("LuckyFridayCalculator.Models.Friday", "Friday")
@@ -323,8 +281,6 @@ namespace LuckyFridayCalculator.Migrations
 
             modelBuilder.Entity("LuckyFridayCalculator.Models.HedgeSet", b =>
                 {
-                    b.Navigation("LineupEntries");
-
                     b.Navigation("SingleBets");
                 });
 

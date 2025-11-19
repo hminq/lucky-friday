@@ -27,8 +27,13 @@ public class FridaysController : ControllerBase
             .Include(f => f.LineupEntries)
                 .ThenInclude(le => le.Member)
             .Include(f => f.SingleBets)
-            .Include(f => f.HedgeSet)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.SingleBets)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.LineupEntries)
+                    .ThenInclude(hle => hle.Member)
             .OrderByDescending(f => f.BetDateTime)
+            .AsSplitQuery()
             .ToListAsync();
 
         var today = DateTime.UtcNow.AddHours(7).Date;
@@ -45,7 +50,7 @@ public class FridaysController : ControllerBase
             Status = f.Status,
             Dog = f.Dog,
             IsCurrentFriday = f.BetDateTime.Date == today,
-            HasHedgeSet = f.HedgeSet != null,
+            HasHedgeSet = f.HedgeSets.Any(),
             LineupEntries = f.LineupEntries.Select(le => new LineupEntryDto
             {
                 Id = le.Id,
@@ -62,6 +67,29 @@ public class FridaysController : ControllerBase
                 OddsHongKong = sb.OddsHongKong,
                 OddsInternational = sb.OddsInternational,
                 Status = sb.Status
+            }).ToList(),
+            HedgeSets = f.HedgeSets.Select(hs => new FridayHedgeSetDto
+            {
+                Id = hs.Id,
+                Title = hs.Title,
+                Budget = hs.Budget,
+                SingleBets = hs.SingleBets.Select(sb => new SingleBetDto
+                {
+                    Id = sb.Id,
+                    Title = sb.Title,
+                    MatchStartTime = sb.MatchStartTime,
+                    MatchEndTime = sb.MatchEndTime,
+                    OddsHongKong = sb.OddsHongKong,
+                    OddsInternational = sb.OddsInternational,
+                    Status = sb.Status
+                }).ToList(),
+                LineupEntries = hs.LineupEntries.Select(le => new LineupEntryDto
+                {
+                    Id = le.Id,
+                    MemberId = le.MemberId,
+                    MemberName = le.Member.Name,
+                    Amount = le.Amount
+                }).ToList()
             }).ToList()
         }).ToList();
     }
@@ -74,8 +102,12 @@ public class FridaysController : ControllerBase
             .Include(f => f.LineupEntries)
                 .ThenInclude(le => le.Member)
             .Include(f => f.SingleBets)
-            .Include(f => f.HedgeSet)
-                .ThenInclude(hs => hs != null ? hs.SingleBets : null!)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.SingleBets)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.LineupEntries)
+                    .ThenInclude(hle => hle.Member)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(f => f.Id == id);
 
         if (friday == null)
@@ -97,7 +129,7 @@ public class FridaysController : ControllerBase
             Status = friday.Status,
             Dog = friday.Dog,
             IsCurrentFriday = friday.BetDateTime.Date == today,
-            HasHedgeSet = friday.HedgeSet != null,
+            HasHedgeSet = friday.HedgeSets.Any(),
             LineupEntries = friday.LineupEntries.Select(le => new LineupEntryDto
             {
                 Id = le.Id,
@@ -115,12 +147,12 @@ public class FridaysController : ControllerBase
                 OddsInternational = sb.OddsInternational,
                 Status = sb.Status
             }).ToList(),
-            HedgeSet = friday.HedgeSet != null ? new FridayHedgeSetDto
+            HedgeSets = friday.HedgeSets.Select(hs => new FridayHedgeSetDto
             {
-                Id = friday.HedgeSet.Id,
-                Title = friday.HedgeSet.Title,
-                Budget = friday.HedgeSet.Budget,
-                SingleBets = friday.HedgeSet.SingleBets.Select(sb => new SingleBetDto
+                Id = hs.Id,
+                Title = hs.Title,
+                Budget = hs.Budget,
+                SingleBets = hs.SingleBets.Select(sb => new SingleBetDto
                 {
                     Id = sb.Id,
                     Title = sb.Title,
@@ -129,8 +161,15 @@ public class FridaysController : ControllerBase
                     OddsHongKong = sb.OddsHongKong,
                     OddsInternational = sb.OddsInternational,
                     Status = sb.Status
+                }).ToList(),
+                LineupEntries = hs.LineupEntries.Select(le => new LineupEntryDto
+                {
+                    Id = le.Id,
+                    MemberId = le.MemberId,
+                    MemberName = le.Member.Name,
+                    Amount = le.Amount
                 }).ToList()
-            } : null
+            }).ToList()
         };
     }
 
@@ -232,7 +271,7 @@ public class FridaysController : ControllerBase
             await _context.SaveChangesAsync();
         }
 
-        // Create HedgeSet if provided or if CreateHedgeSet is true (legacy)
+        // Create HedgeSet if provided
         if (dto.HedgeSet != null)
         {
             if (dto.HedgeSet.SingleBets == null || dto.HedgeSet.SingleBets.Count != 2)
@@ -266,18 +305,62 @@ public class FridaysController : ControllerBase
                 };
                 _context.SingleBets.Add(singleBet);
             }
+
+            // Initialize HedgeSet Lineup from Friday Lineup
+            foreach (var entry in friday.LineupEntries)
+            {
+                hedgeSet.LineupEntries.Add(new HedgeSetLineupEntry
+                {
+                    HedgeSetId = hedgeSet.Id,
+                    HedgeSet = hedgeSet,
+                    MemberId = entry.MemberId,
+                    Member = entry.Member,
+                    Amount = entry.Amount
+                });
+            }
             await _context.SaveChangesAsync();
         }
-        else if (dto.CreateHedgeSet) // Legacy support
+        else if (dto.CreateHedgeSet) // "Create Later" / Default
         {
             var hedgeSet = new HedgeSet
             {
                 FridayId = friday.Id,
                 Friday = friday,
                 Title = $"Withdrawal bets for {friday.BetDateTime:yyyy-MM-dd}",
-                Budget = friday.TotalDeposit * 2
+                Budget = friday.TotalDeposit * 2 // Default budget
             };
             _context.HedgeSets.Add(hedgeSet);
+            await _context.SaveChangesAsync();
+
+            // Create 2 default SingleBets
+            for (int i = 1; i <= 2; i++)
+            {
+                var singleBet = new SingleBet
+                {
+                    Title = $"Bet {i}",
+                    MatchStartTime = friday.BetDateTime,
+                    MatchEndTime = friday.BetDateTime.AddHours(2),
+                    OddsHongKong = 0,
+                    OddsInternational = 0,
+                    Status = BetStatus.Running,
+                    HedgeSetId = hedgeSet.Id,
+                    HedgeSet = hedgeSet
+                };
+                _context.SingleBets.Add(singleBet);
+            }
+
+            // Initialize HedgeSet Lineup from Friday Lineup
+            foreach (var entry in friday.LineupEntries)
+            {
+                hedgeSet.LineupEntries.Add(new HedgeSetLineupEntry
+                {
+                    HedgeSetId = hedgeSet.Id,
+                    HedgeSet = hedgeSet,
+                    MemberId = entry.MemberId,
+                    Member = entry.Member,
+                    Amount = entry.Amount
+                });
+            }
             await _context.SaveChangesAsync();
         }
 
@@ -287,7 +370,11 @@ public class FridaysController : ControllerBase
             .Include(f => f.LineupEntries)
                 .ThenInclude(le => le.Member)
             .Include(f => f.SingleBets)
-            .Include(f => f.HedgeSet)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.SingleBets)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.LineupEntries)
+                    .ThenInclude(hle => hle.Member)
             .FirstOrDefaultAsync(f => f.Id == friday.Id);
 
         if (createdFriday == null)
@@ -308,7 +395,7 @@ public class FridaysController : ControllerBase
             Status = createdFriday.Status,
             Dog = createdFriday.Dog,
             IsCurrentFriday = createdFriday.BetDateTime.Date == today,
-            HasHedgeSet = createdFriday.HedgeSet != null,
+            HasHedgeSet = createdFriday.HedgeSets.Any(),
             LineupEntries = createdFriday.LineupEntries.Select(le => new LineupEntryDto
             {
                 Id = le.Id,
@@ -325,6 +412,29 @@ public class FridaysController : ControllerBase
                 OddsHongKong = sb.OddsHongKong,
                 OddsInternational = sb.OddsInternational,
                 Status = sb.Status
+            }).ToList(),
+            HedgeSets = createdFriday.HedgeSets.Select(hs => new FridayHedgeSetDto
+            {
+                Id = hs.Id,
+                Title = hs.Title,
+                Budget = hs.Budget,
+                SingleBets = hs.SingleBets.Select(sb => new SingleBetDto
+                {
+                    Id = sb.Id,
+                    Title = sb.Title,
+                    MatchStartTime = sb.MatchStartTime,
+                    MatchEndTime = sb.MatchEndTime,
+                    OddsHongKong = sb.OddsHongKong,
+                    OddsInternational = sb.OddsInternational,
+                    Status = sb.Status
+                }).ToList(),
+                LineupEntries = hs.LineupEntries.Select(le => new LineupEntryDto
+                {
+                    Id = le.Id,
+                    MemberId = le.MemberId,
+                    MemberName = le.Member.Name,
+                    Amount = le.Amount
+                }).ToList()
             }).ToList()
         };
 
@@ -338,8 +448,10 @@ public class FridaysController : ControllerBase
             .Include(f => f.Account)
             .Include(f => f.LineupEntries)
             .Include(f => f.SingleBets)
-            .Include(f => f.HedgeSet)
-                .ThenInclude(hs => hs != null ? hs.SingleBets : null!)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.SingleBets)
+            .Include(f => f.HedgeSets)
+                .ThenInclude(hs => hs.LineupEntries)
             .FirstOrDefaultAsync(f => f.Id == id);
 
         if (friday == null)
@@ -363,17 +475,11 @@ public class FridaysController : ControllerBase
         }
         
         // Always update BetDateTime if provided
-        // For nullable DateTime, HasValue will be true if a value was sent
         if (dto.BetDateTime.HasValue)
         {
             _logger.LogInformation("UpdateFriday: Updating BetDateTime from {Old} to {New}", 
                 friday.BetDateTime, dto.BetDateTime.Value);
             friday.BetDateTime = dto.BetDateTime.Value;
-        }
-        else
-        {
-            _logger.LogWarning("UpdateFriday: BetDateTime not provided or HasValue is false. Current value: {Current}", 
-                friday.BetDateTime);
         }
 
         if (dto.TotalOddsHongKong.HasValue)
@@ -469,51 +575,138 @@ public class FridaysController : ControllerBase
             }
         }
 
-        // Update HedgeSet if provided
-        if (dto.HedgeSet != null)
+        // Update HedgeSets if provided
+        if (dto.HedgeSets != null)
         {
-            if (dto.HedgeSet.SingleBets == null || dto.HedgeSet.SingleBets.Count != 2)
+            // Logic for updating multiple HedgeSets
+            // We will replace the entire list for simplicity, or update by ID if present
+            // For now, let's assume we are syncing the list.
+            
+            // However, the frontend might send partial updates. 
+            // Given the complexity, let's assume the frontend sends the FULL list of HedgeSets desired.
+            
+            // 1. Identify existing HedgeSets to keep/update and which to delete
+            var incomingIds = dto.HedgeSets.Where(hs => hs.Id.HasValue).Select(hs => hs.Id.Value).ToList();
+            var existingHedgeSets = friday.HedgeSets.ToList();
+            
+            // Delete removed HedgeSets
+            foreach (var existing in existingHedgeSets)
             {
-                return BadRequest(new { error = "HedgeSet must have exactly 2 SingleBets" });
-            }
-
-            // Delete existing hedge set and its single bets
-            if (friday.HedgeSet != null)
-            {
-                var existingHedgeSetSingleBets = await _context.SingleBets
-                    .Where(sb => sb.HedgeSetId == friday.HedgeSet.Id)
-                    .ToListAsync();
-                _context.SingleBets.RemoveRange(existingHedgeSetSingleBets);
-                _context.HedgeSets.Remove(friday.HedgeSet);
-                await _context.SaveChangesAsync();
-            }
-
-            // Create new hedge set
-            var hedgeSet = new HedgeSet
-            {
-                FridayId = friday.Id,
-                Friday = friday,
-                Title = dto.HedgeSet.Title,
-                Budget = dto.HedgeSet.Budget
-            };
-            _context.HedgeSets.Add(hedgeSet);
-            await _context.SaveChangesAsync();
-
-            // Add SingleBets to HedgeSet
-            foreach (var sbDto in dto.HedgeSet.SingleBets)
-            {
-                var singleBet = new SingleBet
+                if (!incomingIds.Contains(existing.Id))
                 {
-                    HedgeSetId = hedgeSet.Id,
-                    HedgeSet = hedgeSet,
-                    Title = sbDto.Title,
-                    MatchStartTime = sbDto.MatchStartTime,
-                    MatchEndTime = sbDto.MatchEndTime,
-                    OddsHongKong = sbDto.OddsHongKong,
-                    OddsInternational = sbDto.OddsInternational,
-                    Status = sbDto.Status
-                };
-                _context.SingleBets.Add(singleBet);
+                    _context.HedgeSets.Remove(existing);
+                }
+            }
+            
+            // Update or Add
+            foreach (var hsDto in dto.HedgeSets)
+            {
+                HedgeSet hedgeSet;
+                if (hsDto.Id.HasValue && existingHedgeSets.Any(e => e.Id == hsDto.Id.Value))
+                {
+                    // Update existing
+                    hedgeSet = existingHedgeSets.First(e => e.Id == hsDto.Id.Value);
+                    hedgeSet.Title = hsDto.Title;
+                    hedgeSet.Budget = hsDto.Budget;
+                    
+                    // Update SingleBets
+                    var existingBets = hedgeSet.SingleBets.ToList();
+                    _context.SingleBets.RemoveRange(existingBets);
+                    
+                    foreach (var sbDto in hsDto.SingleBets)
+                    {
+                        _context.SingleBets.Add(new SingleBet
+                        {
+                            HedgeSetId = hedgeSet.Id,
+                            HedgeSet = hedgeSet,
+                            Title = sbDto.Title,
+                            MatchStartTime = sbDto.MatchStartTime,
+                            MatchEndTime = sbDto.MatchEndTime,
+                            OddsHongKong = sbDto.OddsHongKong,
+                            OddsInternational = sbDto.OddsInternational,
+                            Status = sbDto.Status
+                        });
+                    }
+
+                    // Update LineupEntries
+                    if (hsDto.LineupEntries != null)
+                    {
+                        var existingLineup = hedgeSet.LineupEntries.ToList();
+                        _context.HedgeSetLineupEntries.RemoveRange(existingLineup);
+
+                        foreach (var leDto in hsDto.LineupEntries)
+                        {
+                            _context.HedgeSetLineupEntries.Add(new HedgeSetLineupEntry
+                            {
+                                HedgeSetId = hedgeSet.Id,
+                                HedgeSet = hedgeSet,
+                                MemberId = leDto.MemberId,
+                                Member = await _context.Members.FindAsync(leDto.MemberId) ?? throw new Exception("Member not found"),
+                                Amount = leDto.Amount
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    // Create new
+                    hedgeSet = new HedgeSet
+                    {
+                        FridayId = friday.Id,
+                        Friday = friday,
+                        Title = hsDto.Title,
+                        Budget = hsDto.Budget
+                    };
+                    _context.HedgeSets.Add(hedgeSet);
+                    await _context.SaveChangesAsync(); // Save to get ID
+
+                    // Add SingleBets
+                    foreach (var sbDto in hsDto.SingleBets)
+                    {
+                        _context.SingleBets.Add(new SingleBet
+                        {
+                            HedgeSetId = hedgeSet.Id,
+                            HedgeSet = hedgeSet,
+                            Title = sbDto.Title,
+                            MatchStartTime = sbDto.MatchStartTime,
+                            MatchEndTime = sbDto.MatchEndTime,
+                            OddsHongKong = sbDto.OddsHongKong,
+                            OddsInternational = sbDto.OddsInternational,
+                            Status = sbDto.Status
+                        });
+                    }
+
+                    // Add LineupEntries
+                    if (hsDto.LineupEntries != null)
+                    {
+                        foreach (var leDto in hsDto.LineupEntries)
+                        {
+                            _context.HedgeSetLineupEntries.Add(new HedgeSetLineupEntry
+                            {
+                                HedgeSetId = hedgeSet.Id,
+                                HedgeSet = hedgeSet,
+                                MemberId = leDto.MemberId,
+                                Member = await _context.Members.FindAsync(leDto.MemberId) ?? throw new Exception("Member not found"),
+                                Amount = leDto.Amount
+                            });
+                        }
+                    }
+                    else 
+                    {
+                        // Default lineup from Friday if not provided
+                        foreach (var entry in friday.LineupEntries)
+                        {
+                             _context.HedgeSetLineupEntries.Add(new HedgeSetLineupEntry
+                            {
+                                HedgeSetId = hedgeSet.Id,
+                                HedgeSet = hedgeSet,
+                                MemberId = entry.MemberId,
+                                Member = entry.Member,
+                                Amount = entry.Amount
+                            });
+                        }
+                    }
+                }
             }
         }
 
@@ -526,7 +719,7 @@ public class FridaysController : ControllerBase
     public async Task<IActionResult> DeleteFriday(int id)
     {
         var friday = await _context.Fridays
-            .Include(f => f.HedgeSet)
+            .Include(f => f.HedgeSets)
             .FirstOrDefaultAsync(f => f.Id == id);
         
         if (friday == null)
@@ -534,21 +727,21 @@ public class FridaysController : ControllerBase
             return NotFound();
         }
 
-        // Delete SingleBets belonging to HedgeSet first (NO ACTION constraint)
-        if (friday.HedgeSet != null)
+        // Delete SingleBets belonging to HedgeSets first
+        foreach (var hs in friday.HedgeSets)
         {
             var hedgeSetSingleBets = await _context.SingleBets
-                .Where(sb => sb.HedgeSetId == friday.HedgeSet.Id)
+                .Where(sb => sb.HedgeSetId == hs.Id)
                 .ToListAsync();
             
             if (hedgeSetSingleBets.Any())
             {
                 _context.SingleBets.RemoveRange(hedgeSetSingleBets);
-                await _context.SaveChangesAsync();
             }
         }
+        await _context.SaveChangesAsync();
 
-        // Delete Friday (will cascade delete: SingleBets via FridayId, LineupEntries, and HedgeSet)
+        // Delete Friday (will cascade delete)
         _context.Fridays.Remove(friday);
         await _context.SaveChangesAsync();
 
@@ -579,7 +772,8 @@ public class UpdateFridayDto
     public string? Dog { get; set; }
     public List<LineupEntryCreateDto>? LineupEntries { get; set; }
     public List<SingleBetCreateDto>? SingleBets { get; set; }
-    public HedgeSetCreateDto? HedgeSet { get; set; }
+    public List<HedgeSetUpdateDto>? HedgeSets { get; set; }
+    public HedgeSetCreateDto? HedgeSet { get; set; } // Legacy support for single creation
 }
 
 public class FridayDto
@@ -597,7 +791,8 @@ public class FridayDto
     public bool HasHedgeSet { get; set; }
     public List<LineupEntryDto> LineupEntries { get; set; } = new();
     public List<SingleBetDto> SingleBets { get; set; } = new();
-    public FridayHedgeSetDto? HedgeSet { get; set; }
+    public List<FridayHedgeSetDto> HedgeSets { get; set; } = new();
+    public FridayHedgeSetDto? HedgeSet => HedgeSets.FirstOrDefault(); // Back-compat
 }
 
 public class FridayHedgeSetDto
@@ -606,6 +801,7 @@ public class FridayHedgeSetDto
     public string Title { get; set; } = string.Empty;
     public decimal Budget { get; set; }
     public List<SingleBetDto> SingleBets { get; set; } = new();
+    public List<LineupEntryDto> LineupEntries { get; set; } = new();
 }
 
 public class LineupEntryDto
@@ -657,6 +853,12 @@ public class HedgeSetCreateDto
     public string Title { get; set; } = string.Empty;
     public decimal Budget { get; set; }
     public List<SingleBetCreateDto> SingleBets { get; set; } = new();
+    public List<LineupEntryCreateDto>? LineupEntries { get; set; }
+}
+
+public class HedgeSetUpdateDto : HedgeSetCreateDto
+{
+    public int? Id { get; set; }
 }
 
 public class LineupEntryCreateDto

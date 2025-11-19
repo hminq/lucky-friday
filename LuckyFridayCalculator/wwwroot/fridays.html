@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,26 +16,31 @@
             margin-bottom: 40px;
             box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
         }
+
         .today-friday-box.empty {
             border-color: var(--border);
             box-shadow: none;
             text-align: center;
             color: var(--text-muted);
         }
+
         .today-friday-content {
             display: flex;
             flex-direction: column;
             gap: 48px;
         }
+
         .today-friday-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             gap: 32px;
         }
+
         .today-friday-eyebrow {
             display: none;
         }
+
         .today-friday-title {
             font-size: 28px;
             font-weight: 600;
@@ -44,28 +50,34 @@
             align-items: baseline;
             gap: 12px;
         }
+
         .today-friday-account {
             font-size: 16px;
             font-weight: 400;
             color: var(--text-muted);
         }
+
         .today-friday-subtitle {
             font-size: 14px;
             color: var(--text-muted);
             margin: 4px 0 0;
         }
+
         .today-status-block {
             text-align: right;
         }
+
         .today-status-block .status-badge {
             font-size: 16px;
             padding: 12px 24px;
             font-weight: 600;
         }
+
         .today-status-block .status-badge.running {
             font-weight: 700;
             font-size: 17px;
         }
+
         .today-status-pill {
             display: inline-flex;
             align-items: center;
@@ -74,28 +86,33 @@
             font-size: 14px;
             font-weight: 600;
         }
+
         .today-status-block .dog-label {
             font-size: 12px;
             color: var(--text-muted);
             display: block;
             margin-top: 6px;
         }
+
         .today-status-block .dog-value {
             font-size: 14px;
             font-weight: 500;
             color: var(--text);
         }
+
         .today-metrics {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 24px;
         }
+
         .today-metric {
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 18px;
             background: var(--bg);
         }
+
         .today-metric-label {
             font-size: 12px;
             color: var(--text-muted);
@@ -103,14 +120,17 @@
             text-transform: uppercase;
             margin-bottom: 4px;
         }
+
         .today-metric-value {
             font-size: 18px;
             font-weight: 600;
             color: var(--text);
         }
+
         .today-metric.expected-return .today-metric-value {
             color: #1a7f37;
         }
+
         .today-timeline {
             display: flex;
             align-items: center;
@@ -120,29 +140,35 @@
             border-radius: var(--radius-sm);
             padding: 20px 32px;
         }
+
         .timeline-node {
             flex: 0 0 auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
+
         .timeline-node:first-child {
             text-align: left;
         }
+
         .timeline-node:last-child {
             text-align: right;
             margin-left: auto;
         }
+
         .timeline-label {
             font-size: 12px;
             color: var(--text-muted);
             text-transform: uppercase;
             margin-bottom: 4px;
         }
+
         .timeline-value {
             font-size: 14px;
             font-weight: 500;
         }
+
         .timeline-divider {
             flex: 1;
             height: 2px;
@@ -151,6 +177,7 @@
             align-self: center;
             margin: 0;
         }
+
         .timeline-divider::before,
         .timeline-divider::after {
             content: '';
@@ -163,18 +190,22 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
         .timeline-divider::before {
             left: -5px;
         }
+
         .timeline-divider::after {
             right: -5px;
         }
+
         .today-lineup,
         .today-bets {
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 20px;
         }
+
         .today-section-title {
             font-size: 13px;
             font-weight: 600;
@@ -183,6 +214,7 @@
             letter-spacing: 0.05em;
             margin-bottom: 16px;
         }
+
         .today-lineup-list {
             display: flex;
             flex-wrap: wrap;
@@ -190,6 +222,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .today-lineup-badge {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -201,42 +234,51 @@
             align-items: center;
             min-width: 120px;
         }
+
         .today-lineup-name {
             font-size: 15px;
             font-weight: 600;
             color: var(--text);
         }
+
         .today-lineup-share {
             font-size: 13px;
             font-weight: 500;
             color: var(--text-muted);
         }
+
         .status-badge.running {
             font-weight: 600;
         }
+
         .today-bets-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 12px;
         }
+
         .today-bet-card {
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 12px;
             background: var(--surface);
         }
+
         .money-input-group {
             display: flex;
             gap: 8px;
             align-items: center;
         }
+
         .money-input-group input {
             flex: 1;
         }
+
         .money-input-actions {
             display: flex;
             gap: 6px;
         }
+
         .money-input-button {
             height: 38px;
             padding: 0 12px;
@@ -249,27 +291,32 @@
             cursor: pointer;
             transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
         }
+
         .money-input-button:hover {
             background: #0969da;
             border-color: #0969da;
             color: #fff;
         }
+
         .today-bet-title {
             font-size: 14px;
             font-weight: 500;
             color: var(--text);
             margin-bottom: 4px;
         }
+
         .today-bet-time,
         .today-bet-odds {
             font-size: 12px;
             color: var(--text-muted);
         }
+
         .fridays-list {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
+
         .friday-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -277,37 +324,44 @@
             padding: 18px;
             transition: all var(--transition-fast);
         }
+
         .friday-card.current {
             border: 2px solid #0969da;
             box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
         }
+
         .friday-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 10px;
         }
+
         .friday-card-actions {
             display: flex;
             gap: 8px;
             margin-top: 8px;
         }
+
         .friday-card-title {
             font-size: 20px;
             font-weight: 500;
             color: var(--text);
             margin: 0 0 4px 0;
         }
+
         .friday-card-account {
             font-size: 14px;
             color: var(--text-muted);
             margin: 0;
         }
+
         .friday-card-odds-toggle {
             display: flex;
             align-items: center;
             gap: 8px;
         }
+
         .odds-value {
             font-size: 18px;
             font-weight: 500;
@@ -315,6 +369,7 @@
             min-width: 80px;
             text-align: right;
         }
+
         .friday-card-meta {
             display: flex;
             gap: 10px;
@@ -322,36 +377,43 @@
             margin-bottom: 12px;
             flex-wrap: wrap;
         }
+
         .friday-card-meta .status-badge {
             font-size: 13px;
             padding: 6px 12px;
             font-weight: 600;
         }
+
         .dog-label {
             font-size: 13px;
             color: var(--text-muted);
         }
+
         .dog-value {
             font-size: 13px;
             color: var(--text);
             font-weight: 500;
         }
+
         .friday-card-content {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
+
         .lineup-section {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
+
         .lineup-label {
             font-size: 12px;
             color: var(--text-muted);
             font-weight: 500;
             margin-bottom: 4px;
         }
+
         .lineup-entries {
             display: flex;
             flex-wrap: wrap;
@@ -359,6 +421,7 @@
             justify-content: flex-start;
             align-items: center;
         }
+
         .lineup-badge {
             display: inline-flex;
             align-items: baseline;
@@ -371,20 +434,24 @@
             color: var(--text);
             font-weight: 500;
         }
+
         .lineup-amount {
             font-weight: 500;
             color: var(--text-muted);
         }
+
         .lineup-share {
             font-size: 11px;
             font-weight: 500;
             color: var(--text-muted);
         }
+
         .singlebets-section {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
+
         .singlebet-card {
             background: var(--bg);
             border: 1px solid var(--border);
@@ -395,10 +462,12 @@
             align-items: center;
             gap: 8px;
         }
+
         .singlebet-info {
             flex: 1;
             min-width: 0;
         }
+
         .singlebet-title {
             font-size: 14px;
             font-weight: 500;
@@ -408,16 +477,19 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
         .singlebet-time {
             font-size: 12px;
             color: var(--text-muted);
             margin: 0 0 6px 0;
         }
+
         .singlebet-odds {
             font-size: 12px;
             color: var(--text-muted);
             margin: 0;
         }
+
         .singlebet-status {
             display: inline-block;
             padding: 4px 12px;
@@ -425,6 +497,7 @@
             font-size: 12px;
             font-weight: 500;
         }
+
         .friday-summary {
             margin-top: 10px;
             padding: 14px;
@@ -436,26 +509,32 @@
             align-items: center;
             gap: 12px;
         }
+
         .friday-summary-item {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
+
         .friday-summary-label {
             font-size: 12px;
             color: var(--text-muted);
         }
+
         .friday-summary-value {
             font-size: 16px;
             font-weight: 600;
             color: var(--text);
         }
+
         .friday-summary-value.highlight {
             color: #1a7f37;
         }
+
         .hedgeset-button {
             margin-top: 12px;
         }
+
         .btn-hedgeset {
             background: var(--bg);
             color: var(--text);
@@ -466,34 +545,41 @@
             font-size: 12px;
             transition: background-color var(--transition-fast);
         }
+
         .btn-hedgeset:hover {
             background: var(--surface);
         }
+
         .btn-hedgeset:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
+
         /* Form Sections */
         .form-section {
             margin-bottom: 32px;
             padding-bottom: 24px;
             border-bottom: 1px solid var(--border);
         }
+
         .form-section:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
+
         .form-section.disabled {
             opacity: 0.5;
             pointer-events: none;
         }
+
         .form-section-header {
             font-size: 18px;
             font-weight: 500;
             color: var(--text);
             margin-bottom: 16px;
         }
+
         .form-section-header .section-number {
             display: inline-block;
             width: 24px;
@@ -507,15 +593,18 @@
             font-weight: 600;
             margin-right: 8px;
         }
+
         .form-section-header.completed .section-number {
             background: #1a7f37;
             color: white;
             border-color: #1a7f37;
         }
+
         /* Lineup Management */
         .lineup-management {
             margin-top: 0;
         }
+
         .lineup-management label {
             display: block;
             margin-bottom: 6px;
@@ -523,11 +612,13 @@
             font-weight: 500;
             color: var(--text);
         }
+
         .lineup-add-form {
             display: flex;
             gap: 8px;
             margin-bottom: 12px;
         }
+
         .lineup-add-form input {
             flex: 1;
             height: 38px;
@@ -541,6 +632,7 @@
             color: var(--text);
             transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
         }
+
         .lineup-add-form select {
             flex: 1;
             appearance: none;
@@ -550,18 +642,22 @@
             padding-right: 36px;
             padding-left: 14px;
         }
+
         .lineup-add-form select:focus,
         .lineup-add-form input:focus {
             outline: none;
             border-color: #0969da;
             box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
         }
+
         .lineup-add-form .money-input-group {
             flex: 1;
         }
+
         .lineup-add-form button {
             white-space: nowrap;
         }
+
         .lineup-list {
             background: var(--bg);
             border: 1px solid var(--border);
@@ -571,6 +667,7 @@
             max-height: 200px;
             overflow-y: auto;
         }
+
         .lineup-item {
             display: flex;
             justify-content: space-between;
@@ -578,20 +675,25 @@
             padding: 8px;
             border-bottom: 1px solid var(--border);
         }
+
         .lineup-item:last-child {
             border-bottom: none;
         }
+
         .lineup-item-info {
             flex: 1;
         }
+
         .lineup-item-name {
             font-weight: 500;
             color: var(--text);
         }
+
         .lineup-item-amount {
             font-size: 13px;
             color: var(--text-muted);
         }
+
         .lineup-item-remove {
             background: transparent;
             border: none;
@@ -600,10 +702,12 @@
             padding: 4px 8px;
             font-size: 12px;
         }
+
         .lineup-item-remove:hover {
             background: var(--bg);
             border-radius: var(--radius-sm);
         }
+
         .lineup-total {
             margin-top: 12px;
             padding-top: 12px;
@@ -612,21 +716,26 @@
             justify-content: space-between;
             font-weight: 500;
         }
+
         .lineup-total.valid {
             color: #1a7f37;
         }
+
         .lineup-total.invalid {
             color: #cf222e;
         }
+
         .withdrawal-option {
             margin-top: 16px;
             padding-top: 16px;
             border-top: 1px solid var(--border);
         }
+
         .withdrawal-option label {
             display: block;
             margin-bottom: 8px;
         }
+
         .withdrawal-toggle {
             display: inline-flex;
             background-color: var(--bg);
@@ -635,6 +744,7 @@
             padding: 2px;
             gap: 4px;
         }
+
         .withdrawal-toggle button {
             border: none;
             padding: 6px 20px;
@@ -645,6 +755,7 @@
             cursor: pointer;
             transition: all var(--transition-fast);
         }
+
         .withdrawal-toggle button.active {
             background-color: var(--surface);
             color: var(--text);
@@ -652,6 +763,7 @@
             box-shadow: 0 1px 2px rgba(27, 31, 36, 0.08);
             border: 1px solid var(--border);
         }
+
         .singlebet-form {
             background: var(--bg);
             border: 1px solid var(--border);
@@ -659,33 +771,40 @@
             padding: 16px;
             margin-bottom: 16px;
         }
+
         .singlebet-form-header {
             font-size: 14px;
             font-weight: 500;
             color: var(--text);
             margin-bottom: 12px;
         }
+
         .singlebet-form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 12px;
         }
+
         .singlebet-form-row.full-width {
             grid-template-columns: 1fr;
         }
+
         .singlebet-form-row.datetime {
             grid-template-columns: 1.5fr 0.8fr 0.8fr 1.5fr 0.8fr 0.8fr;
             gap: 12px;
         }
+
         .singlebet-form-row.datetime .form-group {
             min-width: 0;
             margin-bottom: 0;
         }
+
         .singlebet-form-row.datetime input {
             width: 100%;
             box-sizing: border-box;
         }
+
         .odds-calculation {
             margin-top: 24px;
             padding: 16px;
@@ -693,12 +812,14 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
         }
+
         .odds-calculation-header {
             font-size: 14px;
             font-weight: 500;
             color: var(--text);
             margin-bottom: 12px;
         }
+
         .odds-calculation-row {
             display: flex;
             justify-content: space-between;
@@ -706,20 +827,24 @@
             padding: 8px 0;
             border-bottom: 1px solid var(--border);
         }
+
         .odds-calculation-row:last-child {
             border-bottom: none;
             font-weight: 500;
             font-size: 15px;
         }
+
         .odds-calculation-label {
             color: var(--text-muted);
             font-size: 13px;
         }
+
         .odds-calculation-value {
             color: var(--text);
             font-size: 14px;
             font-weight: 500;
         }
+
         .hedgeset-form {
             background: var(--bg);
             border: 1px solid var(--border);
@@ -727,12 +852,14 @@
             padding: 16px;
             margin-bottom: 16px;
         }
+
         .hedgeset-form-header {
             font-size: 14px;
             font-weight: 500;
             color: var(--text);
             margin-bottom: 12px;
         }
+
         .modal-actions {
             margin-top: 32px;
             padding-top: 24px;
@@ -740,6 +867,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-title">Ditmemay1xbet</div>
@@ -770,13 +898,15 @@
                 <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
                 <a class="nav-link" href="/members" data-role-only="accountant">Members</a>
                 <a class="nav-link active" href="/fridays" data-role-only="accountant">Fridays</a>
-                <a class="nav-link" href="/hedgesets" data-role-only="accountant">Sus Bets</a>
+
             </div>
             <div class="sidebar-odds-toggle">
                 <label class="sidebar-odds-toggle-label">Odds Format</label>
                 <div class="odds-toggle">
-                    <button type="button" id="global-odds-hk" class="odds-btn active" onclick="setGlobalOddsType('hk')">HK</button>
-                    <button type="button" id="global-odds-int" class="odds-btn" onclick="setGlobalOddsType('int')">INT</button>
+                    <button type="button" id="global-odds-hk" class="odds-btn active"
+                        onclick="setGlobalOddsType('hk')">HK</button>
+                    <button type="button" id="global-odds-int" class="odds-btn"
+                        onclick="setGlobalOddsType('int')">INT</button>
                 </div>
             </div>
         </aside>
@@ -797,7 +927,8 @@
             </div>
             <div class="bet-master-content" data-role-only="bet" style="display: none;">
                 <div class="empty-state" style="padding: 48px; text-align: center;">
-                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master View</h2>
+                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master
+                        View</h2>
                     <p style="color: var(--text-muted);">Switch to Accountant role to manage Fridays.</p>
                 </div>
             </div>
@@ -826,24 +957,31 @@
                         <div class="singlebet-form-row datetime">
                             <div class="form-group">
                                 <label for="friday-date">Bet Date *</label>
-                                <input type="date" id="friday-date" name="betDateTime" required onchange="validateSection1()" />
+                                <input type="date" id="friday-date" name="betDateTime" required
+                                    onchange="validateSection1()" />
                             </div>
                             <div class="form-group">
                                 <label for="friday-hour">Hour *</label>
-                                <input type="number" id="friday-hour" name="betHour" min="0" max="23" value="0" required onchange="validateSection1()" />
+                                <input type="number" id="friday-hour" name="betHour" min="0" max="23" value="0" required
+                                    onchange="validateSection1()" />
                             </div>
                             <div class="form-group">
                                 <label for="friday-minute">Minute *</label>
-                                <input type="number" id="friday-minute" name="betMinute" min="0" max="59" value="0" required onchange="validateSection1()" />
+                                <input type="number" id="friday-minute" name="betMinute" min="0" max="59" value="0"
+                                    required onchange="validateSection1()" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="friday-deposit">Total Deposit (VND) *</label>
                             <div class="money-input-group">
-                                <input type="number" id="friday-deposit" name="totalDeposit" step="0.01" min="0.01" max="8099999.99" required oninput="updateLineupValidation(); validateSection1();" data-money-input />
+                                <input type="number" id="friday-deposit" name="totalDeposit" step="0.01" min="0.01"
+                                    max="8099999.99" required oninput="updateLineupValidation(); validateSection1();"
+                                    data-money-input />
                                 <div class="money-input-actions">
-                                    <button type="button" class="money-input-button" data-multiplier="1000000">Triệu</button>
-                                    <button type="button" class="money-input-button" data-multiplier="100000">Trăm nghìn</button>
+                                    <button type="button" class="money-input-button"
+                                        data-multiplier="1000000">Triệu</button>
+                                    <button type="button" class="money-input-button" data-multiplier="100000">Trăm
+                                        nghìn</button>
                                 </div>
                             </div>
                         </div>
@@ -859,7 +997,7 @@
                             <label for="friday-dog">Dog (optional)</label>
                             <input type="text" id="friday-dog" name="dog" maxlength="100" />
                         </div>
-                        
+
                         <div class="lineup-management">
                             <label>Lineup *</label>
                             <div class="lineup-add-form">
@@ -867,10 +1005,13 @@
                                     <option value="">Select member...</option>
                                 </select>
                                 <div class="money-input-group">
-                                    <input type="number" id="lineup-amount-input" step="0.01" min="0.01" placeholder="Amount (VND)" data-money-input />
+                                    <input type="number" id="lineup-amount-input" step="0.01" min="0.01"
+                                        placeholder="Amount (VND)" data-money-input />
                                     <div class="money-input-actions">
-                                        <button type="button" class="money-input-button" data-multiplier="1000000">Triệu</button>
-                                        <button type="button" class="money-input-button" data-multiplier="100000">Trăm nghìn</button>
+                                        <button type="button" class="money-input-button"
+                                            data-multiplier="1000000">Triệu</button>
+                                        <button type="button" class="money-input-button" data-multiplier="100000">Trăm
+                                            nghìn</button>
                                     </div>
                                 </div>
                                 <button type="button" class="btn-secondary" onclick="addLineupMember()">Add</button>
@@ -894,42 +1035,57 @@
                                 <div class="singlebet-form-header">Single Bet 1 *</div>
                                 <div class="form-group">
                                     <label>Title *</label>
-                                    <input type="text" class="singlebet-title" data-index="0" maxlength="250" required onchange="validateSingleBet(0); validateSection2();" />
+                                    <input type="text" class="singlebet-title" data-index="0" maxlength="250" required
+                                        onchange="validateSingleBet(0); validateSection2();" />
                                 </div>
                                 <div class="singlebet-form-row datetime">
                                     <div class="form-group">
                                         <label>Start Date *</label>
-                                        <input type="date" class="singlebet-start-date" data-index="0" required onchange="updateSingleBetDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <input type="date" class="singlebet-start-date" data-index="0" required
+                                            onchange="updateSingleBetDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Hour *</label>
-                                        <input type="number" class="singlebet-start-hour" data-index="0" min="0" max="23" value="0" required onchange="updateSingleBetDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-start-hour" data-index="0" min="0"
+                                            max="23" value="0" required
+                                            onchange="updateSingleBetDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Minute *</label>
-                                        <input type="number" class="singlebet-start-minute" data-index="0" min="0" max="59" value="0" required onchange="updateSingleBetDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-start-minute" data-index="0" min="0"
+                                            max="59" value="0" required
+                                            onchange="updateSingleBetDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Date *</label>
-                                        <input type="date" class="singlebet-end-date" data-index="0" required onchange="updateSingleBetEndDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <input type="date" class="singlebet-end-date" data-index="0" required
+                                            onchange="updateSingleBetEndDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Hour *</label>
-                                        <input type="number" class="singlebet-end-hour" data-index="0" min="0" max="23" value="23" required onchange="updateSingleBetEndDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-end-hour" data-index="0" min="0" max="23"
+                                            value="23" required
+                                            onchange="updateSingleBetEndDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Minute *</label>
-                                        <input type="number" class="singlebet-end-minute" data-index="0" min="0" max="59" value="59" required onchange="updateSingleBetEndDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-end-minute" data-index="0" min="0"
+                                            max="59" value="59" required
+                                            onchange="updateSingleBetEndDateTime(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                 </div>
                                 <div class="singlebet-form-row">
                                     <div class="form-group">
-                                        <label class="singlebet-odds-label">Odds (<span id="odds-type-label-0">HK</span>) *</label>
-                                        <input type="number" class="singlebet-odds" data-index="0" step="0.0001" min="0" required oninput="updateSingleBetOdds(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
+                                        <label class="singlebet-odds-label">Odds (<span
+                                                id="odds-type-label-0">HK</span>) *</label>
+                                        <input type="number" class="singlebet-odds" data-index="0" step="0.0001" min="0"
+                                            required
+                                            oninput="updateSingleBetOdds(0); validateSingleBet(0); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Status *</label>
-                                        <select class="singlebet-status" data-index="0" required onchange="validateSingleBet(0); validateSection2();">
+                                        <select class="singlebet-status" data-index="0" required
+                                            onchange="validateSingleBet(0); validateSection2();">
                                             <option value="0">Running</option>
                                             <option value="1">Eat</option>
                                             <option value="2">Lost</option>
@@ -941,42 +1097,57 @@
                                 <div class="singlebet-form-header">Single Bet 2 *</div>
                                 <div class="form-group">
                                     <label>Title *</label>
-                                    <input type="text" class="singlebet-title" data-index="1" maxlength="250" required onchange="validateSingleBet(1); validateSection2();" />
+                                    <input type="text" class="singlebet-title" data-index="1" maxlength="250" required
+                                        onchange="validateSingleBet(1); validateSection2();" />
                                 </div>
                                 <div class="singlebet-form-row datetime">
                                     <div class="form-group">
                                         <label>Start Date *</label>
-                                        <input type="date" class="singlebet-start-date" data-index="1" required onchange="updateSingleBetDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <input type="date" class="singlebet-start-date" data-index="1" required
+                                            onchange="updateSingleBetDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Hour *</label>
-                                        <input type="number" class="singlebet-start-hour" data-index="1" min="0" max="23" value="0" required onchange="updateSingleBetDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-start-hour" data-index="1" min="0"
+                                            max="23" value="0" required
+                                            onchange="updateSingleBetDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Minute *</label>
-                                        <input type="number" class="singlebet-start-minute" data-index="1" min="0" max="59" value="0" required onchange="updateSingleBetDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-start-minute" data-index="1" min="0"
+                                            max="59" value="0" required
+                                            onchange="updateSingleBetDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Date *</label>
-                                        <input type="date" class="singlebet-end-date" data-index="1" required onchange="updateSingleBetEndDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <input type="date" class="singlebet-end-date" data-index="1" required
+                                            onchange="updateSingleBetEndDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Hour *</label>
-                                        <input type="number" class="singlebet-end-hour" data-index="1" min="0" max="23" value="23" required onchange="updateSingleBetEndDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-end-hour" data-index="1" min="0" max="23"
+                                            value="23" required
+                                            onchange="updateSingleBetEndDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Minute *</label>
-                                        <input type="number" class="singlebet-end-minute" data-index="1" min="0" max="59" value="59" required onchange="updateSingleBetEndDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-end-minute" data-index="1" min="0"
+                                            max="59" value="59" required
+                                            onchange="updateSingleBetEndDateTime(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                 </div>
                                 <div class="singlebet-form-row">
                                     <div class="form-group">
-                                        <label class="singlebet-odds-label">Odds (<span id="odds-type-label-1">HK</span>) *</label>
-                                        <input type="number" class="singlebet-odds" data-index="1" step="0.0001" min="0" required oninput="updateSingleBetOdds(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
+                                        <label class="singlebet-odds-label">Odds (<span
+                                                id="odds-type-label-1">HK</span>) *</label>
+                                        <input type="number" class="singlebet-odds" data-index="1" step="0.0001" min="0"
+                                            required
+                                            oninput="updateSingleBetOdds(1); validateSingleBet(1); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Status *</label>
-                                        <select class="singlebet-status" data-index="1" required onchange="validateSingleBet(1); validateSection2();">
+                                        <select class="singlebet-status" data-index="1" required
+                                            onchange="validateSingleBet(1); validateSection2();">
                                             <option value="0">Running</option>
                                             <option value="1">Eat</option>
                                             <option value="2">Lost</option>
@@ -988,42 +1159,57 @@
                                 <div class="singlebet-form-header">Single Bet 3 *</div>
                                 <div class="form-group">
                                     <label>Title *</label>
-                                    <input type="text" class="singlebet-title" data-index="2" maxlength="250" required onchange="validateSingleBet(2); validateSection2();" />
+                                    <input type="text" class="singlebet-title" data-index="2" maxlength="250" required
+                                        onchange="validateSingleBet(2); validateSection2();" />
                                 </div>
                                 <div class="singlebet-form-row datetime">
                                     <div class="form-group">
                                         <label>Start Date *</label>
-                                        <input type="date" class="singlebet-start-date" data-index="2" required onchange="updateSingleBetDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <input type="date" class="singlebet-start-date" data-index="2" required
+                                            onchange="updateSingleBetDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Hour *</label>
-                                        <input type="number" class="singlebet-start-hour" data-index="2" min="0" max="23" value="0" required onchange="updateSingleBetDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-start-hour" data-index="2" min="0"
+                                            max="23" value="0" required
+                                            onchange="updateSingleBetDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Minute *</label>
-                                        <input type="number" class="singlebet-start-minute" data-index="2" min="0" max="59" value="0" required onchange="updateSingleBetDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-start-minute" data-index="2" min="0"
+                                            max="59" value="0" required
+                                            onchange="updateSingleBetDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Date *</label>
-                                        <input type="date" class="singlebet-end-date" data-index="2" required onchange="updateSingleBetEndDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <input type="date" class="singlebet-end-date" data-index="2" required
+                                            onchange="updateSingleBetEndDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Hour *</label>
-                                        <input type="number" class="singlebet-end-hour" data-index="2" min="0" max="23" value="23" required onchange="updateSingleBetEndDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-end-hour" data-index="2" min="0" max="23"
+                                            value="23" required
+                                            onchange="updateSingleBetEndDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Minute *</label>
-                                        <input type="number" class="singlebet-end-minute" data-index="2" min="0" max="59" value="59" required onchange="updateSingleBetEndDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <input type="number" class="singlebet-end-minute" data-index="2" min="0"
+                                            max="59" value="59" required
+                                            onchange="updateSingleBetEndDateTime(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                 </div>
                                 <div class="singlebet-form-row">
                                     <div class="form-group">
-                                        <label class="singlebet-odds-label">Odds (<span id="odds-type-label-2">HK</span>) *</label>
-                                        <input type="number" class="singlebet-odds" data-index="2" step="0.0001" min="0" required oninput="updateSingleBetOdds(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
+                                        <label class="singlebet-odds-label">Odds (<span
+                                                id="odds-type-label-2">HK</span>) *</label>
+                                        <input type="number" class="singlebet-odds" data-index="2" step="0.0001" min="0"
+                                            required
+                                            oninput="updateSingleBetOdds(2); validateSingleBet(2); validateSection2(); updateOddsCalculation();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Status *</label>
-                                        <select class="singlebet-status" data-index="2" required onchange="validateSingleBet(2); validateSection2();">
+                                        <select class="singlebet-status" data-index="2" required
+                                            onchange="validateSingleBet(2); validateSection2();">
                                             <option value="0">Running</option>
                                             <option value="1">Eat</option>
                                             <option value="2">Lost</option>
@@ -1059,47 +1245,71 @@
                             <span class="section-number">3</span>
                             Sus Bets Setup
                         </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <button type="button" id="skip-setup-btn" class="btn-secondary" onclick="handleSkipSetup()"
+                                style="width: 100%; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                Create with Default Sus Bets (Skip Setup)
+                            </button>
+                            <div
+                                style="text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+                                - OR -</div>
+                        </div>
                         <div id="hedgeset-container">
                             <div class="hedgeset-form" data-hedgeset-index="0">
                                 <div class="hedgeset-form-header">Bet 1 *</div>
                                 <div class="form-group">
                                     <label>Title *</label>
-                                    <input type="text" class="hedgeset-title" data-index="0" maxlength="250" required onchange="validateHedgeBet(0); validateSection3();" />
+                                    <input type="text" class="hedgeset-title" data-index="0" maxlength="250" required
+                                        onchange="validateHedgeBet(0); validateSection3();" />
                                 </div>
                                 <div class="singlebet-form-row datetime">
                                     <div class="form-group">
                                         <label>Start Date *</label>
-                                        <input type="date" class="hedgeset-start-date" data-index="0" required onchange="updateHedgeBetDateTime(0); validateHedgeBet(0); validateSection3();" />
+                                        <input type="date" class="hedgeset-start-date" data-index="0" required
+                                            onchange="updateHedgeBetDateTime(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Hour *</label>
-                                        <input type="number" class="hedgeset-start-hour" data-index="0" min="0" max="23" value="0" required onchange="updateHedgeBetDateTime(0); validateHedgeBet(0); validateSection3();" />
+                                        <input type="number" class="hedgeset-start-hour" data-index="0" min="0" max="23"
+                                            value="0" required
+                                            onchange="updateHedgeBetDateTime(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Minute *</label>
-                                        <input type="number" class="hedgeset-start-minute" data-index="0" min="0" max="59" value="0" required onchange="updateHedgeBetDateTime(0); validateHedgeBet(0); validateSection3();" />
+                                        <input type="number" class="hedgeset-start-minute" data-index="0" min="0"
+                                            max="59" value="0" required
+                                            onchange="updateHedgeBetDateTime(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Date *</label>
-                                        <input type="date" class="hedgeset-end-date" data-index="0" required onchange="updateHedgeBetEndDateTime(0); validateHedgeBet(0); validateSection3();" />
+                                        <input type="date" class="hedgeset-end-date" data-index="0" required
+                                            onchange="updateHedgeBetEndDateTime(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Hour *</label>
-                                        <input type="number" class="hedgeset-end-hour" data-index="0" min="0" max="23" value="23" required onchange="updateHedgeBetEndDateTime(0); validateHedgeBet(0); validateSection3();" />
+                                        <input type="number" class="hedgeset-end-hour" data-index="0" min="0" max="23"
+                                            value="23" required
+                                            onchange="updateHedgeBetEndDateTime(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Minute *</label>
-                                        <input type="number" class="hedgeset-end-minute" data-index="0" min="0" max="59" value="59" required onchange="updateHedgeBetEndDateTime(0); validateHedgeBet(0); validateSection3();" />
+                                        <input type="number" class="hedgeset-end-minute" data-index="0" min="0" max="59"
+                                            value="59" required
+                                            onchange="updateHedgeBetEndDateTime(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                 </div>
                                 <div class="singlebet-form-row">
                                     <div class="form-group">
-                                        <label class="hedgeset-odds-label">Odds (<span id="hedgeset-odds-type-label-0">HK</span>) *</label>
-                                        <input type="number" class="hedgeset-odds" data-index="0" step="0.0001" min="0" required oninput="updateHedgeBetOdds(0); validateHedgeBet(0); validateSection3();" />
+                                        <label class="hedgeset-odds-label">Odds (<span
+                                                id="hedgeset-odds-type-label-0">HK</span>) *</label>
+                                        <input type="number" class="hedgeset-odds" data-index="0" step="0.0001" min="0"
+                                            required
+                                            oninput="updateHedgeBetOdds(0); validateHedgeBet(0); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Status *</label>
-                                        <select class="hedgeset-status" data-index="0" required onchange="validateHedgeBet(0); validateSection3();">
+                                        <select class="hedgeset-status" data-index="0" required
+                                            onchange="validateHedgeBet(0); validateSection3();">
                                             <option value="0">Running</option>
                                             <option value="1">Eat</option>
                                             <option value="2">Lost</option>
@@ -1111,42 +1321,57 @@
                                 <div class="hedgeset-form-header">Bet 2 *</div>
                                 <div class="form-group">
                                     <label>Title *</label>
-                                    <input type="text" class="hedgeset-title" data-index="1" maxlength="250" required onchange="validateHedgeBet(1); validateSection3();" />
+                                    <input type="text" class="hedgeset-title" data-index="1" maxlength="250" required
+                                        onchange="validateHedgeBet(1); validateSection3();" />
                                 </div>
                                 <div class="singlebet-form-row datetime">
                                     <div class="form-group">
                                         <label>Start Date *</label>
-                                        <input type="date" class="hedgeset-start-date" data-index="1" required onchange="updateHedgeBetDateTime(1); validateHedgeBet(1); validateSection3();" />
+                                        <input type="date" class="hedgeset-start-date" data-index="1" required
+                                            onchange="updateHedgeBetDateTime(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Hour *</label>
-                                        <input type="number" class="hedgeset-start-hour" data-index="1" min="0" max="23" value="0" required onchange="updateHedgeBetDateTime(1); validateHedgeBet(1); validateSection3();" />
+                                        <input type="number" class="hedgeset-start-hour" data-index="1" min="0" max="23"
+                                            value="0" required
+                                            onchange="updateHedgeBetDateTime(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Start Minute *</label>
-                                        <input type="number" class="hedgeset-start-minute" data-index="1" min="0" max="59" value="0" required onchange="updateHedgeBetDateTime(1); validateHedgeBet(1); validateSection3();" />
+                                        <input type="number" class="hedgeset-start-minute" data-index="1" min="0"
+                                            max="59" value="0" required
+                                            onchange="updateHedgeBetDateTime(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Date *</label>
-                                        <input type="date" class="hedgeset-end-date" data-index="1" required onchange="updateHedgeBetEndDateTime(1); validateHedgeBet(1); validateSection3();" />
+                                        <input type="date" class="hedgeset-end-date" data-index="1" required
+                                            onchange="updateHedgeBetEndDateTime(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Hour *</label>
-                                        <input type="number" class="hedgeset-end-hour" data-index="1" min="0" max="23" value="23" required onchange="updateHedgeBetEndDateTime(1); validateHedgeBet(1); validateSection3();" />
+                                        <input type="number" class="hedgeset-end-hour" data-index="1" min="0" max="23"
+                                            value="23" required
+                                            onchange="updateHedgeBetEndDateTime(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>End Minute *</label>
-                                        <input type="number" class="hedgeset-end-minute" data-index="1" min="0" max="59" value="59" required onchange="updateHedgeBetEndDateTime(1); validateHedgeBet(1); validateSection3();" />
+                                        <input type="number" class="hedgeset-end-minute" data-index="1" min="0" max="59"
+                                            value="59" required
+                                            onchange="updateHedgeBetEndDateTime(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                 </div>
                                 <div class="singlebet-form-row">
                                     <div class="form-group">
-                                        <label class="hedgeset-odds-label">Odds (<span id="hedgeset-odds-type-label-1">HK</span>) *</label>
-                                        <input type="number" class="hedgeset-odds" data-index="1" step="0.0001" min="0" required oninput="updateHedgeBetOdds(1); validateHedgeBet(1); validateSection3();" />
+                                        <label class="hedgeset-odds-label">Odds (<span
+                                                id="hedgeset-odds-type-label-1">HK</span>) *</label>
+                                        <input type="number" class="hedgeset-odds" data-index="1" step="0.0001" min="0"
+                                            required
+                                            oninput="updateHedgeBetOdds(1); validateHedgeBet(1); validateSection3();" />
                                     </div>
                                     <div class="form-group">
                                         <label>Status *</label>
-                                        <select class="hedgeset-status" data-index="1" required onchange="validateHedgeBet(1); validateSection3();">
+                                        <select class="hedgeset-status" data-index="1" required
+                                            onchange="validateHedgeBet(1); validateSection3();">
                                             <option value="0">Running</option>
                                             <option value="1">Eat</option>
                                             <option value="2">Lost</option>
@@ -1155,7 +1380,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 16px; padding: 12px; background: var(--bg); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-muted);">
+                        <div
+                            style="margin-top: 16px; padding: 12px; background: var(--bg); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-muted);">
                             <strong>Note:</strong> Lineup will be automatically used from Friday's lineup.
                         </div>
                     </div>
@@ -1210,12 +1436,12 @@
             accountantSections.forEach(section => {
                 section.classList.toggle('hidden', !isAccountant);
             });
-            
+
             const mainContent = document.querySelector('.main-content');
             if (mainContent) {
                 const accountantContent = mainContent.querySelectorAll('[data-role-only="accountant"]');
                 const betContent = mainContent.querySelectorAll('[data-role-only="bet"]');
-                
+
                 accountantContent.forEach(el => {
                     el.style.display = isAccountant ? '' : 'none';
                 });
@@ -1223,7 +1449,7 @@
                     el.style.display = isAccountant ? 'none' : '';
                 });
             }
-            
+
             setCookie(ROLE_COOKIE, role);
         }
 
@@ -1273,32 +1499,32 @@
         function addLineupMember() {
             const memberSelect = document.getElementById('lineup-member-select');
             const amountInput = document.getElementById('lineup-amount-input');
-            
+
             const memberId = parseInt(memberSelect.value);
             const amount = parseFloat(amountInput.value);
-            
+
             if (!memberId || !amount || amount <= 0) {
                 return;
             }
-            
+
             const member = members.find(m => m.id === memberId);
             if (!member) return;
-            
+
             // Check if member already exists in lineup
             if (lineupEntries.find(e => e.memberId === memberId)) {
                 alert('Member already in lineup');
                 return;
             }
-            
+
             lineupEntries.push({
                 memberId: memberId,
                 memberName: member.name,
                 amount: amount
             });
-            
+
             memberSelect.value = '';
             amountInput.value = '';
-            
+
             renderLineupList();
             updateLineupValidation();
             validateSection1();
@@ -1313,12 +1539,12 @@
 
         function renderLineupList() {
             const list = document.getElementById('lineup-list');
-            
+
             if (lineupEntries.length === 0) {
                 list.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 24px;">No members added</div>';
                 return;
             }
-            
+
             list.innerHTML = lineupEntries.map(entry => {
                 return `
                     <div class="lineup-item">
@@ -1347,23 +1573,23 @@
             const depositInput = document.getElementById('friday-deposit');
             const totalAmountSpan = document.getElementById('lineup-total-amount');
             const totalDiv = document.getElementById('lineup-total');
-            
+
             const totalDeposit = parseFloat(depositInput.value) || 0;
             const lineupTotal = lineupEntries.reduce((sum, e) => sum + e.amount, 0);
-            
+
             totalAmountSpan.textContent = formatCurrency(lineupTotal);
-            
+
             if (lineupTotal === 0) {
                 totalDiv.className = 'lineup-total';
                 return;
             }
-            
+
             if (Math.abs(lineupTotal - totalDeposit) < 0.01) {
                 totalDiv.className = 'lineup-total valid';
             } else {
                 totalDiv.className = 'lineup-total invalid';
             }
-            
+
             validateSection1();
             updateOddsCalculation();
         }
@@ -1376,13 +1602,13 @@
             const status = document.getElementById('friday-status').value;
             const totalDeposit = parseFloat(document.getElementById('friday-deposit').value) || 0;
             const lineupTotal = lineupEntries.reduce((sum, e) => sum + e.amount, 0);
-            
-            const isValid = account && date && deposit >= 0.01 && deposit < 8100000 && status !== '' && 
-                           lineupEntries.length > 0 && Math.abs(lineupTotal - totalDeposit) < 0.01;
-            
+
+            const isValid = account && date && deposit >= 0.01 && deposit < 8100000 && status !== '' &&
+                lineupEntries.length > 0 && Math.abs(lineupTotal - totalDeposit) < 0.01;
+
             const section2 = document.getElementById('section-2');
             const section1Header = document.getElementById('section-1-header');
-            
+
             if (isValid) {
                 section2.classList.remove('disabled');
                 section1Header.classList.add('completed');
@@ -1390,7 +1616,7 @@
                 section2.classList.add('disabled');
                 section1Header.classList.remove('completed');
             }
-            
+
             validateAll();
         }
 
@@ -1401,10 +1627,10 @@
                     allValid = false;
                 }
             }
-            
+
             const section3 = document.getElementById('section-3');
             const section2Header = document.getElementById('section-2-header');
-            
+
             if (allValid) {
                 section3.classList.remove('disabled');
                 section2Header.classList.add('completed');
@@ -1412,25 +1638,68 @@
                 section3.classList.add('disabled');
                 section2Header.classList.remove('completed');
             }
-            
+
             validateAll();
         }
 
+        function handleSkipSetup() {
+            const errorDiv = document.getElementById('form-error');
+            errorDiv.style.display = 'none';
+
+            // Validate Section 1 - Basic Info
+            const section1Header = document.getElementById('section-1-header');
+            if (!section1Header.classList.contains('completed')) {
+                errorDiv.textContent = 'Please complete Section 1 (Basic Info) first.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // Validate Section 2 - Single Bets
+            const section2Header = document.getElementById('section-2-header');
+            if (!section2Header.classList.contains('completed')) {
+                errorDiv.textContent = 'Please complete Section 2 (Single Bets) first.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // Mark section 3 as completed
+            document.getElementById('section-3-header').classList.add('completed');
+
+            // Set flag to indicate skip setup
+            let skipInput = document.getElementById('skip-setup-input');
+            if (!skipInput) {
+                skipInput = document.createElement('input');
+                skipInput.type = 'hidden';
+                skipInput.id = 'skip-setup-input';
+                skipInput.name = 'skipSetup';
+                document.getElementById('friday-form').appendChild(skipInput);
+            }
+            skipInput.value = 'true';
+
+            // Trigger submit
+            document.getElementById('friday-form').requestSubmit();
+        }
+
         function validateSection3() {
-            let allValid = true;
+            // If we are here, it means the user is filling the form manually.
+            // So we validate the hedge bet inputs.
+
+            let isValid = true;
+
+            // Validate all hedge bets
             for (let i = 0; i < 2; i++) {
                 if (!validateHedgeBet(i)) {
-                    allValid = false;
+                    isValid = false;
                 }
             }
-            
-            const section3Header = document.getElementById('section-3-header');
-            if (allValid) {
-                section3Header.classList.add('completed');
+
+            const header = document.getElementById('section-3-header');
+            if (isValid) {
+                header.classList.add('completed');
             } else {
-                section3Header.classList.remove('completed');
+                header.classList.remove('completed');
             }
-            
+
             validateAll();
         }
 
@@ -1438,11 +1707,11 @@
             const section1Header = document.getElementById('section-1-header');
             const section2Header = document.getElementById('section-2-header');
             const section3Header = document.getElementById('section-3-header');
-            
+
             const section1Valid = section1Header.classList.contains('completed');
             const section2Valid = section2Header.classList.contains('completed');
             const section3Valid = section3Header.classList.contains('completed');
-            
+
             const submitBtn = document.getElementById('friday-submit-btn');
             submitBtn.disabled = !(section1Valid && section2Valid && section3Valid);
         }
@@ -1456,7 +1725,7 @@
             const endMinute = document.querySelector(`.singlebet-end-minute[data-index="${index}"]`).value;
             const odds = parseFloat(document.querySelector(`.singlebet-odds[data-index="${index}"]`).value) || 0;
             const status = document.querySelector(`.singlebet-status[data-index="${index}"]`).value;
-            
+
             if (title && startDate && endDate && endHour !== '' && endMinute !== '' && odds > 0 && status !== '') {
                 // Update data when valid
                 singleBetsData[index].title = title;
@@ -1473,7 +1742,7 @@
             const startDate = document.querySelector(`.singlebet-start-date[data-index="${index}"]`).value;
             const startHour = parseInt(document.querySelector(`.singlebet-start-hour[data-index="${index}"]`).value) || 0;
             const startMinute = parseInt(document.querySelector(`.singlebet-start-minute[data-index="${index}"]`).value) || 0;
-            
+
             if (startDate) {
                 const date = new Date(startDate);
                 date.setHours(startHour, startMinute, 0, 0);
@@ -1485,7 +1754,7 @@
             const endDate = document.querySelector(`.singlebet-end-date[data-index="${index}"]`).value;
             const endHour = parseInt(document.querySelector(`.singlebet-end-hour[data-index="${index}"]`).value) || 23;
             const endMinute = parseInt(document.querySelector(`.singlebet-end-minute[data-index="${index}"]`).value) || 59;
-            
+
             if (endDate) {
                 const date = new Date(endDate);
                 date.setHours(endHour, endMinute, 59, 999);
@@ -1497,7 +1766,7 @@
             const oddsInput = document.querySelector(`.singlebet-odds[data-index="${index}"]`);
             const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
             const oddsValue = parseFloat(oddsInput.value) || 0;
-            
+
             if (oddsType === 'hk') {
                 singleBetsData[index].oddsHongKong = oddsValue;
                 singleBetsData[index].oddsInternational = oddsValue + 1;
@@ -1516,7 +1785,7 @@
             const endMinute = document.querySelector(`.hedgeset-end-minute[data-index="${index}"]`).value;
             const odds = parseFloat(document.querySelector(`.hedgeset-odds[data-index="${index}"]`).value) || 0;
             const status = document.querySelector(`.hedgeset-status[data-index="${index}"]`).value;
-            
+
             if (title && startDate && endDate && endHour !== '' && endMinute !== '' && odds > 0 && status !== '') {
                 // Update data when valid
                 hedgeBetsData[index].title = title;
@@ -1533,7 +1802,7 @@
             const startDate = document.querySelector(`.hedgeset-start-date[data-index="${index}"]`).value;
             const startHour = parseInt(document.querySelector(`.hedgeset-start-hour[data-index="${index}"]`).value) || 0;
             const startMinute = parseInt(document.querySelector(`.hedgeset-start-minute[data-index="${index}"]`).value) || 0;
-            
+
             if (startDate) {
                 const date = new Date(startDate);
                 date.setHours(startHour, startMinute, 0, 0);
@@ -1545,7 +1814,7 @@
             const endDate = document.querySelector(`.hedgeset-end-date[data-index="${index}"]`).value;
             const endHour = parseInt(document.querySelector(`.hedgeset-end-hour[data-index="${index}"]`).value) || 23;
             const endMinute = parseInt(document.querySelector(`.hedgeset-end-minute[data-index="${index}"]`).value) || 59;
-            
+
             if (endDate) {
                 const date = new Date(endDate);
                 date.setHours(endHour, endMinute, 59, 999);
@@ -1557,7 +1826,7 @@
             const oddsInput = document.querySelector(`.hedgeset-odds[data-index="${index}"]`);
             const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
             const oddsValue = parseFloat(oddsInput.value) || 0;
-            
+
             if (oddsType === 'hk') {
                 hedgeBetsData[index].oddsHongKong = oddsValue;
                 hedgeBetsData[index].oddsInternational = oddsValue + 1;
@@ -1571,12 +1840,12 @@
         function updateOddsLabels() {
             const oddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
             const label = oddsType === 'hk' ? 'HK' : 'INT';
-            
+
             for (let i = 0; i < 3; i++) {
                 const labelEl = document.getElementById(`odds-type-label-${i}`);
                 if (labelEl) labelEl.textContent = label;
             }
-            
+
             for (let i = 0; i < 2; i++) {
                 const labelEl = document.getElementById(`hedgeset-odds-type-label-${i}`);
                 if (labelEl) labelEl.textContent = label;
@@ -1590,7 +1859,7 @@
             const totalOddsINTEl = document.getElementById('total-odds-int');
             const totalDepositEl = document.getElementById('total-deposit-display');
             const totalReturnEl = document.getElementById('total-return');
-            
+
             // Check if all 3 singlebets are valid
             let allValid = true;
             for (let i = 0; i < 3; i++) {
@@ -1599,29 +1868,29 @@
                     break;
                 }
             }
-            
+
             if (!allValid) {
                 calculationDiv.style.display = 'none';
                 return;
             }
-            
+
             // Calculate total odds
             // For parlay bets: multiply all International odds (HK + 1), then HK = INT - 1
             const totalOddsINT = singleBetsData.reduce((product, sb) => product * (sb.oddsInternational || 1), 1);
             const totalOddsHK = totalOddsINT - 1;
-            
+
             // Get total deposit
             const totalDeposit = parseFloat(document.getElementById('friday-deposit').value) || 0;
-            
+
             // Calculate total return (lãi + gốc) = totalDeposit * totalOddsINT (using International odds)
             const totalReturn = totalDeposit * totalOddsINT;
-            
+
             // Display
             totalOddsHKEl.textContent = totalOddsHK.toFixed(4);
             totalOddsINTEl.textContent = totalOddsINT.toFixed(4);
             totalDepositEl.textContent = formatCurrency(totalDeposit);
             totalReturnEl.textContent = formatCurrency(totalReturn);
-            
+
             calculationDiv.style.display = 'block';
         }
 
@@ -1633,7 +1902,7 @@
                 renderFridays(fridays);
             } catch (error) {
                 showError('Failed to load Fridays: ' + error.message);
-                document.getElementById('fridays-list').innerHTML = 
+                document.getElementById('fridays-list').innerHTML =
                     '<div class="empty-state">Error loading Fridays</div>';
             }
         }
@@ -1642,10 +1911,10 @@
             const list = document.getElementById('fridays-list');
             const todayBox = document.getElementById('today-friday-box');
             const todayContent = document.getElementById('today-friday-content');
-            
+
             // Find today's Friday
             const todayFriday = fridays.find(f => f.isCurrentFriday);
-            
+
             if (todayFriday) {
                 const date = new Date(todayFriday.betDateTime);
                 const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -1660,7 +1929,7 @@
                 const oddsValue = globalOddsType === 'int' ? todayFriday.totalOddsInternational.toFixed(4) : todayFriday.totalOddsHongKong.toFixed(4);
                 const oddsLabel = globalOddsType === 'int' ? 'INT Odds' : 'HK Odds';
                 const totalReturn = todayFriday.totalDeposit * todayFriday.totalOddsInternational;
-                
+
                 const lineupBadges = todayFriday.lineupEntries.length > 0
                     ? (() => {
                         const limited = todayFriday.lineupEntries.slice(0, 6).map(le => {
@@ -1676,7 +1945,7 @@
                         return limited + (remaining > 0 ? `<span class="today-lineup-badge">+${remaining} more</span>` : '');
                     })()
                     : '<span class="today-lineup-badge" style="opacity: 0.6;">No lineup data</span>';
-                
+
                 const highlightedBets = todayFriday.singleBets && todayFriday.singleBets.length > 0
                     ? todayFriday.singleBets.slice(0, 3).map(sb => {
                         const sbStatusClass = sb.status === 0 ? 'running' : sb.status === 1 ? 'eat' : 'lost';
@@ -1693,7 +1962,7 @@
                         `;
                     }).join('')
                     : '<div class="today-bet-card" style="opacity: 0.6;">No single bets yet</div>';
-                
+
                 todayBox.classList.remove('empty');
                 todayBox.style.display = 'block';
                 todayContent.innerHTML = `
@@ -1755,7 +2024,7 @@
                 todayBox.style.display = 'block';
                 todayContent.innerHTML = '<p>No Friday found for today.</p>';
             }
-            
+
             if (fridays.length === 0) {
                 list.innerHTML = '<div class="empty-state">No Fridays found</div>';
                 return;
@@ -1765,14 +2034,14 @@
             const sortedFridays = [...fridays].sort((a, b) => new Date(b.betDateTime) - new Date(a.betDateTime));
 
             const globalOddsType = getCookie(ODDS_TYPE_COOKIE) || 'hk';
-            
+
             list.innerHTML = sortedFridays.map(friday => {
                 const date = new Date(friday.betDateTime);
                 const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                 const hour = date.getHours().toString().padStart(2, '0');
                 const minute = date.getMinutes().toString().padStart(2, '0');
                 const timeStr = `${hour}:${minute}`;
-                
+
                 // Calculate end time (start + 24 hours)
                 const endDate = new Date(date);
                 endDate.setHours(endDate.getHours() + 24);
@@ -1780,7 +2049,7 @@
                 const endHour = endDate.getHours().toString().padStart(2, '0');
                 const endMinute = endDate.getMinutes().toString().padStart(2, '0');
                 const endTimeStr = `${endHour}:${endMinute}`;
-                
+
                 const statusClass = friday.status === 0 ? 'running' : friday.status === 1 ? 'eat' : 'lost';
                 const statusText = friday.status === 0 ? 'Running' : friday.status === 1 ? 'Eat' : 'Lost';
                 const oddsValue = globalOddsType === 'int' ? friday.totalOddsInternational.toFixed(4) : friday.totalOddsHongKong.toFixed(4);
@@ -1810,28 +2079,28 @@
                             <div class="lineup-section">
                                 <div class="lineup-label">Lineup</div>
                                 <div class="lineup-entries">
-                                ${friday.lineupEntries.length > 0 
-                                        ? friday.lineupEntries.map(le => {
-                                                const share = formatContributionShare(le.amount);
-                                                return `
+                                ${friday.lineupEntries.length > 0
+                        ? friday.lineupEntries.map(le => {
+                            const share = formatContributionShare(le.amount);
+                            return `
                                                     <span class="lineup-badge">
                                                         <span>${escapeHtml(le.memberName)}</span>
                                                         ${share ? `<span class="lineup-share">${share}</span>` : ''}
                                                     </span>
                                                 `;
-                                            }).join('')
-                                        : '<span class="lineup-badge" style="opacity: 0.5;">No lineup</span>'
-                                    }
+                        }).join('')
+                        : '<span class="lineup-badge" style="opacity: 0.5;">No lineup</span>'
+                    }
                                 </div>
                             </div>
                             <div class="singlebets-section">
                                 ${friday.singleBets.length > 0
-                                    ? friday.singleBets.map(sb => {
-                                        const sbStatusClass = sb.status === 0 ? 'running' : sb.status === 1 ? 'eat' : 'lost';
-                                        const sbStatusText = sb.status === 0 ? 'Running' : sb.status === 1 ? 'Eat' : 'Lost';
-                                        const startTime = new Date(sb.matchStartTime).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                                        const sbOddsValue = globalOddsType === 'int' ? (sb.oddsInternational || 0).toFixed(4) : (sb.oddsHongKong || 0).toFixed(4);
-                                        return `
+                        ? friday.singleBets.map(sb => {
+                            const sbStatusClass = sb.status === 0 ? 'running' : sb.status === 1 ? 'eat' : 'lost';
+                            const sbStatusText = sb.status === 0 ? 'Running' : sb.status === 1 ? 'Eat' : 'Lost';
+                            const startTime = new Date(sb.matchStartTime).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                            const sbOddsValue = globalOddsType === 'int' ? (sb.oddsInternational || 0).toFixed(4) : (sb.oddsHongKong || 0).toFixed(4);
+                            return `
                                             <div class="singlebet-card">
                                                 <div class="singlebet-info">
                                                     <div class="singlebet-title">${escapeHtml(sb.title)}</div>
@@ -1841,9 +2110,9 @@
                                                 <span class="singlebet-status status-badge ${sbStatusClass}">${sbStatusText}</span>
                                             </div>
                                         `;
-                                      }).join('')
-                                    : '<div class="singlebet-card" style="opacity: 0.5;">No single bets</div>'
-                                }
+                        }).join('')
+                        : '<div class="singlebet-card" style="opacity: 0.5;">No single bets</div>'
+                    }
                             </div>
                             <div class="friday-summary">
                                 <div class="friday-summary-item">
@@ -1875,13 +2144,13 @@
         function setGlobalOddsType(type) {
             const hkBtn = document.getElementById('global-odds-hk');
             const intBtn = document.getElementById('global-odds-int');
-            
+
             hkBtn.classList.toggle('active', type === 'hk');
             intBtn.classList.toggle('active', type === 'int');
-            
+
             setCookie(ODDS_TYPE_COOKIE, type);
             updateOddsLabels();
-            
+
             // Re-render all Fridays with new odds type
             if (window.fridaysData) {
                 renderFridays(window.fridaysData);
@@ -1890,13 +2159,15 @@
 
         function viewSusBets(fridayId) {
             // Navigate to sus bets page with filter for this Friday's hedge set
-            window.location.href = `/hedgesets?fridayId=${fridayId}`;
+            window.location.href = `/susbet?fridayId=${fridayId}`;
         }
 
         let editingFridayId = null;
+        let currentHedgeSetId = null;
 
         function openCreateModal() {
             editingFridayId = null;
+            currentHedgeSetId = null;
             document.getElementById('modal-title').textContent = 'Create new LuckyFriday';
             document.getElementById('friday-form').reset();
             const now = new Date();
@@ -1904,19 +2175,19 @@
             document.getElementById('friday-hour').value = now.getHours();
             document.getElementById('friday-minute').value = now.getMinutes();
             document.getElementById('form-error').style.display = 'none';
-            
+
             // Reset lineup
             lineupEntries = [];
             renderLineupList();
             updateLineupValidation();
-            
+
             // Reset sections
             document.getElementById('section-1-header').classList.remove('completed');
             document.getElementById('section-2-header').classList.remove('completed');
             document.getElementById('section-3-header').classList.remove('completed');
             document.getElementById('section-2').classList.add('disabled');
             document.getElementById('section-3').classList.add('disabled');
-            
+
             // Reset singlebet and hedgeset data
             singleBetsData = [
                 { title: '', matchStartTime: null, matchEndTime: null, oddsHongKong: 0, oddsInternational: 0, status: 0 },
@@ -1927,7 +2198,7 @@
                 { title: '', matchStartTime: null, matchEndTime: null, oddsHongKong: 0, oddsInternational: 0, status: 0 },
                 { title: '', matchStartTime: null, matchEndTime: null, oddsHongKong: 0, oddsInternational: 0, status: 0 }
             ];
-            
+
             // Reset all singlebet and hedgeset inputs
             for (let i = 0; i < 3; i++) {
                 document.querySelector(`.singlebet-title[data-index="${i}"]`).value = '';
@@ -1940,7 +2211,7 @@
                 document.querySelector(`.singlebet-odds[data-index="${i}"]`).value = '';
                 document.querySelector(`.singlebet-status[data-index="${i}"]`).value = '0';
             }
-            
+
             for (let i = 0; i < 2; i++) {
                 document.querySelector(`.hedgeset-title[data-index="${i}"]`).value = '';
                 document.querySelector(`.hedgeset-start-date[data-index="${i}"]`).value = '';
@@ -1952,13 +2223,20 @@
                 document.querySelector(`.hedgeset-odds[data-index="${i}"]`).value = '';
                 document.querySelector(`.hedgeset-status[data-index="${i}"]`).value = '0';
             }
-            
+
+            // Reset Create Later checkbox
+            const createLaterCheckbox = document.getElementById('create-later-checkbox');
+            if (createLaterCheckbox) {
+                createLaterCheckbox.checked = false;
+                toggleSusBetFields();
+            }
+
             // Hide odds calculation
             document.getElementById('odds-calculation').style.display = 'none';
-            
+
             updateOddsLabels();
             validateAll();
-            
+
             document.getElementById('friday-modal').classList.add('active');
         }
 
@@ -1967,8 +2245,10 @@
                 const response = await fetch(`/api/fridays/${fridayId}`);
                 if (!response.ok) throw new Error('Failed to load Friday');
                 const friday = await response.json();
-                
+
                 editingFridayId = fridayId;
+                currentHedgeSetId = friday.hedgeSet ? friday.hedgeSet.id : null;
+
                 document.getElementById('modal-title').textContent = 'Edit Friday';
                 document.getElementById('friday-account').value = friday.accountId;
                 // Populate form using browser-local timezone (no manual offset math)
@@ -1982,7 +2262,17 @@
                 document.getElementById('friday-deposit').value = friday.totalDeposit;
                 document.getElementById('friday-status').value = friday.status;
                 document.getElementById('friday-dog').value = friday.dog || '';
-                
+
+                // Reset Create Later checkbox for edit mode (always show if exists, or hide if not?)
+                // If editing, we usually want to show the existing hedge set if it exists.
+                // If it doesn't exist, maybe we can check "Create Later" to hide it initially?
+                // But for simplicity, let's just show the form if there is a hedge set, or empty form if not.
+                const createLaterCheckbox = document.getElementById('create-later-checkbox');
+                if (createLaterCheckbox) {
+                    createLaterCheckbox.checked = false; // Default to showing the form
+                    toggleSusBetFields();
+                }
+
                 // Load lineup entries
                 lineupEntries = friday.lineupEntries.map(le => ({
                     memberId: le.memberId,
@@ -1991,7 +2281,7 @@
                 }));
                 renderLineupList();
                 updateLineupValidation();
-                
+
                 // Load single bets
                 if (friday.singleBets && friday.singleBets.length >= 3) {
                     singleBetsData = friday.singleBets.slice(0, 3).map(sb => {
@@ -2010,7 +2300,7 @@
                             status: sb.status
                         };
                     });
-                    
+
                     // Populate single bet forms
                     singleBetsData.forEach((sb, index) => {
                         const form = document.querySelector(`.singlebet-form[data-singlebet-index="${index}"]`);
@@ -2024,16 +2314,16 @@
                             form.querySelector('.singlebet-end-minute').value = sb.endMinute;
                             form.querySelector('.singlebet-odds').value = getCookie(ODDS_TYPE_COOKIE) === 'int' ? sb.oddsInternational : sb.oddsHongKong;
                             form.querySelector('.singlebet-status').value = sb.status;
-                            
+
                             // Update odds to ensure both HK and INT are stored
                             updateSingleBetOdds(index);
                         }
                     });
-                    
+
                     updateOddsCalculation();
                     validateSection2();
                 }
-                
+
                 // Load hedge set if exists
                 if (friday.hedgeSet && friday.hedgeSet.singleBets && friday.hedgeSet.singleBets.length >= 2) {
                     hedgeBetsData = friday.hedgeSet.singleBets.slice(0, 2).map(hb => {
@@ -2052,7 +2342,7 @@
                             status: hb.status
                         };
                     });
-                    
+
                     // Populate hedge bet forms
                     hedgeBetsData.forEach((hb, index) => {
                         const form = document.querySelector(`.hedgeset-form[data-hedgeset-index="${index}"]`);
@@ -2066,19 +2356,27 @@
                             form.querySelector('.hedgeset-end-minute').value = hb.endMinute;
                             form.querySelector('.hedgeset-odds').value = getCookie(ODDS_TYPE_COOKIE) === 'int' ? hb.oddsInternational : hb.oddsHongKong;
                             form.querySelector('.hedgeset-status').value = hb.status;
-                            
+
                             // Update odds to ensure both HK and INT are stored
                             updateHedgeBetOdds(index);
                         }
                     });
-                    
+
                     validateSection3();
+                } else {
+                    // No hedge set found, maybe check "Create Later" by default?
+                    // Or just leave it empty.
+                    // Let's check "Create Later" if no hedge set exists, so validation passes.
+                    if (createLaterCheckbox) {
+                        createLaterCheckbox.checked = true;
+                        toggleSusBetFields();
+                    }
                 }
-                
+
                 // Enable all sections for edit mode
                 document.getElementById('section-2').classList.remove('disabled');
                 document.getElementById('section-3').classList.remove('disabled');
-                
+
                 document.getElementById('form-error').style.display = 'none';
                 document.getElementById('friday-modal').classList.add('active');
             } catch (error) {
@@ -2106,7 +2404,7 @@
         async function handleSubmit(event) {
             event.preventDefault();
             const errorDiv = document.getElementById('form-error');
-            
+
             if (editingFridayId) {
                 // Update logic - validate all sections first
                 if (lineupEntries.length === 0) {
@@ -2114,10 +2412,10 @@
                     errorDiv.style.display = 'block';
                     return;
                 }
-                
+
                 const totalDeposit = parseFloat(document.getElementById('friday-deposit').value);
                 const lineupTotal = lineupEntries.reduce((sum, e) => sum + e.amount, 0);
-                
+
                 if (Math.abs(lineupTotal - totalDeposit) >= 0.01) {
                     errorDiv.textContent = `Lineup total (${formatCurrency(lineupTotal)}) must equal Total Deposit (${formatCurrency(totalDeposit)})`;
                     errorDiv.style.display = 'block';
@@ -2129,26 +2427,41 @@
                     errorDiv.style.display = 'block';
                     return;
                 }
-                
+
                 // Validate single bets
                 if (singleBetsData.length !== 3) {
                     errorDiv.textContent = 'Please fill in all 3 single bets.';
                     errorDiv.style.display = 'block';
                     return;
                 }
-                
+                // Validate and update all singlebets
                 for (let i = 0; i < 3; i++) {
                     if (!validateSingleBet(i)) {
-                        errorDiv.textContent = `Please complete Single Bet ${i + 1}.`;
+                        errorDiv.textContent = `Single Bet ${i + 1} is incomplete. Please fill all required fields.`;
                         errorDiv.style.display = 'block';
                         return;
                     }
                 }
-                
+
+                // Check if skip setup was triggered (for UPDATE mode)
+                const skipSetupInput = document.getElementById('skip-setup-input');
+                const createLater = skipSetupInput && skipSetupInput.value === 'true';
+
+                // Validate and update all hedge bets ONLY if not creating later
+                if (!createLater) {
+                    for (let i = 0; i < 2; i++) {
+                        if (!validateHedgeBet(i)) {
+                            errorDiv.textContent = `Hedge Bet ${i + 1} is incomplete. Please fill all required fields.`;
+                            errorDiv.style.display = 'block';
+                            return;
+                        }
+                    }
+                }
+
                 // Calculate total odds from singlebets
                 const totalOddsINT = singleBetsData.reduce((product, sb) => product * (sb.oddsInternational || 1), 1);
                 const totalOddsHK = totalOddsINT - 1;
-                
+
                 const dateStr = document.getElementById('friday-date').value;
                 const betDateTimeString = getBetDateTimeString();
                 if (!betDateTimeString) {
@@ -2156,8 +2469,8 @@
                     errorDiv.style.display = 'block';
                     return;
                 }
-                
-                let formData = {
+
+                const formData = {
                     accountId: parseInt(document.getElementById('friday-account').value),
                     betDateTime: betDateTimeString,
                     totalOddsHongKong: totalOddsHK,
@@ -2178,10 +2491,15 @@
                         status: sb.status
                     }))
                 };
-                
-                // Add hedge set if provided
+                // Add hedge set if provided and valid
+                // Note: For update, we only update if the user has filled in the form.
+                // If the Friday already has multiple hedge sets, this simple form might overwrite them or add a new one?
+                // Given the UI limitation of fridays.html (only shows 1 hedge set), let's assume we are updating the PRIMARY hedge set (if exists) or creating one.
+                // Ideally, complex hedge set management should be done in susbet.html.
+                // But for now, let's try to preserve existing behavior: update the first hedge set if exists.
+
                 if (hedgeBetsData.length === 2 && hedgeBetsData.every((hb, i) => validateHedgeBet(i))) {
-                    formData.hedgeSet = {
+                    const hedgeSetPayload = {
                         title: `Sus bets for ${dateStr}`,
                         budget: totalDeposit * 2,
                         singleBets: hedgeBetsData.map(hb => ({
@@ -2193,15 +2511,21 @@
                             status: hb.status
                         }))
                     };
+
+                    if (currentHedgeSetId) {
+                        hedgeSetPayload.id = currentHedgeSetId;
+                    }
+
+                    formData.hedgeSets = [hedgeSetPayload];
                 }
 
                 // Debug: log formData to see what's being sent
                 console.log('Updating Friday with data:', JSON.stringify(formData, null, 2));
-                
+
                 try {
                     const response = await fetch(`/api/fridays/${editingFridayId}`, {
                         method: 'PUT',
-                        headers: { 
+                        headers: {
                             'Content-Type': 'application/json; charset=utf-8'
                         },
                         body: JSON.stringify(formData)
@@ -2222,17 +2546,17 @@
                 }
                 return;
             }
-            
+
             // Create: validate all sections
             if (lineupEntries.length === 0) {
                 errorDiv.textContent = 'Lineup is required. Please add at least one member.';
                 errorDiv.style.display = 'block';
                 return;
             }
-            
+
             const totalDeposit = parseFloat(document.getElementById('friday-deposit').value);
             const lineupTotal = lineupEntries.reduce((sum, e) => sum + e.amount, 0);
-            
+
             if (Math.abs(lineupTotal - totalDeposit) >= 0.01) {
                 errorDiv.textContent = `Lineup total (${formatCurrency(lineupTotal)}) must equal Total Deposit (${formatCurrency(totalDeposit)})`;
                 errorDiv.style.display = 'block';
@@ -2254,20 +2578,25 @@
                 }
             }
 
-            // Validate and update all hedge bets
-            for (let i = 0; i < 2; i++) {
-                if (!validateHedgeBet(i)) {
-                    errorDiv.textContent = `Hedge Bet ${i + 1} is incomplete. Please fill all required fields.`;
-                    errorDiv.style.display = 'block';
-                    return;
+            // Check if skip setup was triggered
+            const skipSetupInput = document.getElementById('skip-setup-input');
+            const createLater = skipSetupInput && skipSetupInput.value === 'true';
+
+            // Validate and update all hedge bets ONLY if not creating later
+            if (!createLater) {
+                for (let i = 0; i < 2; i++) {
+                    if (!validateHedgeBet(i)) {
+                        errorDiv.textContent = `Hedge Bet ${i + 1} is incomplete. Please fill all required fields.`;
+                        errorDiv.style.display = 'block';
+                        return;
+                    }
                 }
             }
 
             // Calculate total odds from singlebets
-            // For parlay bets: multiply all International odds (HK + 1), then HK = INT - 1
             const totalOddsINT = singleBetsData.reduce((product, sb) => product * (sb.oddsInternational || 1), 1);
             const totalOddsHK = totalOddsINT - 1;
-            
+
             const dateStr = document.getElementById('friday-date').value;
             const betDateTimeString = getBetDateTimeString();
             if (!betDateTimeString) {
@@ -2296,7 +2625,11 @@
                     oddsInternational: sb.oddsInternational,
                     status: sb.status
                 })),
-                hedgeSet: {
+                createHedgeSet: createLater
+            };
+
+            if (!createLater) {
+                formData.hedgeSet = {
                     title: `Sus bets for ${document.getElementById('friday-date').value}`,
                     budget: totalDeposit * 2,
                     singleBets: hedgeBetsData.map(hb => ({
@@ -2307,13 +2640,13 @@
                         oddsInternational: hb.oddsInternational,
                         status: hb.status
                     }))
-                }
-            };
+                };
+            }
 
             try {
                 const response = await fetch('/api/fridays', {
                     method: 'POST',
-                    headers: { 
+                    headers: {
                         'Content-Type': 'application/json; charset=utf-8'
                     },
                     body: JSON.stringify(formData)
@@ -2373,8 +2706,8 @@
         }
 
         function formatCurrency(amount) {
-            return new Intl.NumberFormat('vi-VN', { 
-                style: 'currency', 
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
                 currency: 'VND',
                 minimumFractionDigits: 0
             }).format(amount);
@@ -2431,7 +2764,7 @@
                 renderFridays(window.fridaysData);
             } catch (error) {
                 showError('Failed to load Fridays: ' + error.message);
-                document.getElementById('fridays-list').innerHTML = 
+                document.getElementById('fridays-list').innerHTML =
                     '<div class="empty-state">Error loading Fridays</div>';
             }
         }
@@ -2442,5 +2775,5 @@
         loadFridaysWithData();
     </script>
 </body>
-</html>
 
+</html>

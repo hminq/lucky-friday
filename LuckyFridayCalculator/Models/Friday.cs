@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using LuckyFridayCalculator.Models.Enums;
+using System.Linq;
 
 namespace LuckyFridayCalculator.Models;
 
@@ -34,6 +35,21 @@ public class Friday
     // Một Friday có 3 trận single bet (direct relationship)
     public virtual ICollection<SingleBet> SingleBets { get; set; } = new List<SingleBet>();
 
-    // Một Friday chỉ có 0 hoặc 1 HedgeSet (quan hệ 1-1)
-    public virtual HedgeSet? HedgeSet { get; set; }
+    // Một Friday có thể có nhiều HedgeSet
+    public virtual ICollection<HedgeSet> HedgeSets { get; set; } = new List<HedgeSet>();
+
+    // Back-compat cho code cũ (lấy hedge set đầu tiên)
+    [NotMapped]
+    public HedgeSet? HedgeSet
+    {
+        get => HedgeSets.FirstOrDefault();
+        set
+        {
+            HedgeSets.Clear();
+            if (value != null)
+            {
+                HedgeSets.Add(value);
+            }
+        }
+    }
 }

@@ -18,4 +18,6 @@ public class HedgeSet
     public decimal Budget { get; set; }
 
     public virtual ICollection<SingleBet> SingleBets { get; set; } = new List<SingleBet>();
+    
+    public virtual ICollection<HedgeSetLineupEntry> LineupEntries { get; set; } = new List<HedgeSetLineupEntry>();
 }

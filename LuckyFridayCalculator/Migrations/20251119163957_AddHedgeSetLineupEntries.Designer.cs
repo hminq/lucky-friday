@@ -4,6 +4,7 @@ using LuckyFridayCalculator.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LuckyFridayCalculator.Migrations
 {
     [DbContext(typeof(LuckyFridayDbContext))]
-    partial class LuckyFridayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251119163957_AddHedgeSetLineupEntries")]
+    partial class AddHedgeSetLineupEntries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

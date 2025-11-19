@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +13,7 @@
             flex-direction: column;
             gap: 16px;
         }
+
         .hedgeset-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -19,23 +21,27 @@
             padding: 24px;
             transition: all var(--transition-fast);
         }
+
         .hedgeset-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 16px;
         }
+
         .hedgeset-card-title {
             font-size: 20px;
             font-weight: 500;
             color: var(--text);
             margin: 0 0 4px 0;
         }
+
         .hedgeset-card-subtitle {
             font-size: 14px;
             color: var(--text-muted);
             margin: 0;
         }
+
         .hedgeset-card-meta {
             display: flex;
             gap: 16px;
@@ -43,24 +49,28 @@
             margin-bottom: 16px;
             flex-wrap: wrap;
         }
+
         .hedgeset-card-content {
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 16px;
             align-items: start;
         }
+
         .budget-value {
             font-size: 18px;
             font-weight: 500;
             color: var(--text);
             text-align: right;
         }
+
         .singlebets-count {
             font-size: 14px;
             color: var(--text-muted);
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-title">Ditmemay1xbet</div>
@@ -91,13 +101,15 @@
                 <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
                 <a class="nav-link" href="/members" data-role-only="accountant">Members</a>
                 <a class="nav-link" href="/fridays" data-role-only="accountant">Fridays</a>
-                <a class="nav-link active" href="/hedgesets" data-role-only="accountant">Sus Bets</a>
+
             </div>
             <div class="sidebar-odds-toggle">
                 <label class="sidebar-odds-toggle-label">Odds Format</label>
                 <div class="odds-toggle">
-                    <button type="button" id="global-odds-hk" class="odds-btn active" onclick="setGlobalOddsType('hk')">HK</button>
-                    <button type="button" id="global-odds-int" class="odds-btn" onclick="setGlobalOddsType('int')">INT</button>
+                    <button type="button" id="global-odds-hk" class="odds-btn active"
+                        onclick="setGlobalOddsType('hk')">HK</button>
+                    <button type="button" id="global-odds-int" class="odds-btn"
+                        onclick="setGlobalOddsType('int')">INT</button>
                 </div>
             </div>
         </aside>
@@ -113,7 +125,8 @@
             </div>
             <div class="bet-master-content" data-role-only="bet" style="display: none;">
                 <div class="empty-state" style="padding: 48px; text-align: center;">
-                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master View</h2>
+                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master
+                        View</h2>
                     <p style="color: var(--text-muted);">Switch to Accountant role to view Sus Bets.</p>
                 </div>
             </div>
@@ -160,12 +173,12 @@
             accountantSections.forEach(section => {
                 section.classList.toggle('hidden', !isAccountant);
             });
-            
+
             const mainContent = document.querySelector('.main-content');
             if (mainContent) {
                 const accountantContent = mainContent.querySelectorAll('[data-role-only="accountant"]');
                 const betContent = mainContent.querySelectorAll('[data-role-only="bet"]');
-                
+
                 accountantContent.forEach(el => {
                     el.style.display = isAccountant ? '' : 'none';
                 });
@@ -173,7 +186,7 @@
                     el.style.display = isAccountant ? 'none' : '';
                 });
             }
-            
+
             setCookie(ROLE_COOKIE, role);
         }
 
@@ -191,13 +204,13 @@
         function setGlobalOddsType(type) {
             const hkBtn = document.getElementById('global-odds-hk');
             const intBtn = document.getElementById('global-odds-int');
-            
+
             hkBtn.classList.toggle('active', type === 'hk');
             intBtn.classList.toggle('active', type === 'int');
-            
+
             setCookie(ODDS_TYPE_COOKIE, type);
         }
-        
+
         if (document.getElementById('global-odds-hk')) {
             setGlobalOddsType(savedOddsType);
         }
@@ -207,27 +220,27 @@
                 // Check for Friday ID filter from query parameter
                 const urlParams = new URLSearchParams(window.location.search);
                 const fridayId = urlParams.get('fridayId');
-                
+
                 const response = await fetch('/api/hedgesets');
                 if (!response.ok) throw new Error('Failed to load Sus Bets');
                 let hedgeSets = await response.json();
-                
+
                 // Filter by Friday ID if provided
                 if (fridayId) {
                     hedgeSets = hedgeSets.filter(hs => hs.fridayId === parseInt(fridayId));
                 }
-                
+
                 renderHedgeSets(hedgeSets);
             } catch (error) {
                 showError('Failed to load Sus Bets: ' + error.message);
-                document.getElementById('hedgesets-list').innerHTML = 
+                document.getElementById('hedgesets-list').innerHTML =
                     '<div class="empty-state">Error loading Sus Bets</div>';
             }
         }
 
         function renderHedgeSets(hedgeSets) {
             const list = document.getElementById('hedgesets-list');
-            
+
             if (hedgeSets.length === 0) {
                 list.innerHTML = '<div class="empty-state">No Sus Bets found</div>';
                 return;
@@ -253,12 +266,12 @@
                             <div class="lineup-section">
                                 <div class="lineup-label">Lineup</div>
                                 <div class="lineup-entries">
-                                    ${hs.lineupEntries.length > 0 
-                                        ? hs.lineupEntries.map(le => 
-                                            `<span class="lineup-badge">${escapeHtml(le.memberName)} <span class="lineup-amount">${formatCurrency(le.amount)}</span></span>`
-                                          ).join('')
-                                        : '<span class="lineup-badge" style="opacity: 0.5;">No lineup</span>'
-                                    }
+                                    ${hs.lineupEntries.length > 0
+                        ? hs.lineupEntries.map(le =>
+                            `<span class="lineup-badge">${escapeHtml(le.memberName)} <span class="lineup-amount">${formatCurrency(le.amount)}</span></span>`
+                        ).join('')
+                        : '<span class="lineup-badge" style="opacity: 0.5;">No lineup</span>'
+                    }
                                 </div>
                             </div>
                         </div>
@@ -274,8 +287,8 @@
         }
 
         function formatCurrency(amount) {
-            return new Intl.NumberFormat('vi-VN', { 
-                style: 'currency', 
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
                 currency: 'VND',
                 minimumFractionDigits: 0
             }).format(amount);
@@ -290,5 +303,5 @@
         loadHedgeSets();
     </script>
 </body>
-</html>
 
+</html>

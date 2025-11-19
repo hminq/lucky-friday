@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,21 +13,26 @@
             color: var(--text-muted);
             margin: 0;
         }
+
         .members-table {
             table-layout: fixed;
         }
+
         .members-table th:first-child {
             width: 80px;
         }
+
         .members-table th:last-child {
             width: 180px;
             text-align: right;
         }
+
         .members-table td:last-child {
             text-align: right;
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-title">Ditmemay1xbet</div>
@@ -57,13 +63,15 @@
                 <a class="nav-link" href="#" data-role-only="accountant">Calculator</a>
                 <a class="nav-link active" href="/members" data-role-only="accountant">Members</a>
                 <a class="nav-link" href="/fridays" data-role-only="accountant">Fridays</a>
-                <a class="nav-link" href="/hedgesets" data-role-only="accountant">Sus Bets</a>
+
             </div>
             <div class="sidebar-odds-toggle">
                 <label class="sidebar-odds-toggle-label">Odds Format</label>
                 <div class="odds-toggle">
-                    <button type="button" id="global-odds-hk" class="odds-btn active" onclick="setGlobalOddsType('hk')">HK</button>
-                    <button type="button" id="global-odds-int" class="odds-btn" onclick="setGlobalOddsType('int')">INT</button>
+                    <button type="button" id="global-odds-hk" class="odds-btn active"
+                        onclick="setGlobalOddsType('hk')">HK</button>
+                    <button type="button" id="global-odds-int" class="odds-btn"
+                        onclick="setGlobalOddsType('int')">INT</button>
                 </div>
             </div>
         </aside>
@@ -95,7 +103,8 @@
             </div>
             <div class="bet-master-content" data-role-only="bet" style="display: none;">
                 <div class="empty-state" style="padding: 48px; text-align: center;">
-                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master View</h2>
+                    <h2 style="font-size: 20px; font-weight: 400; margin-bottom: 8px; color: var(--text);">Bet Master
+                        View</h2>
                     <p style="color: var(--text-muted);">Switch to Accountant role to manage members.</p>
                 </div>
             </div>
@@ -160,13 +169,13 @@
             accountantSections.forEach(section => {
                 section.classList.toggle('hidden', !isAccountant);
             });
-            
+
             // Toggle content visibility in main-content only
             const mainContent = document.querySelector('.main-content');
             if (mainContent) {
                 const accountantContent = mainContent.querySelectorAll('[data-role-only="accountant"]');
                 const betContent = mainContent.querySelectorAll('[data-role-only="bet"]');
-                
+
                 accountantContent.forEach(el => {
                     el.style.display = isAccountant ? '' : 'none';
                 });
@@ -174,7 +183,7 @@
                     el.style.display = isAccountant ? 'none' : '';
                 });
             }
-            
+
             setCookie(ROLE_COOKIE, role);
         }
 
@@ -198,7 +207,7 @@
                 renderMembers(members);
             } catch (error) {
                 showError('Failed to load members: ' + error.message);
-                document.getElementById('members-tbody').innerHTML = 
+                document.getElementById('members-tbody').innerHTML =
                     '<tr><td colspan="3" class="empty-state">Error loading members</td></tr>';
             }
         }
@@ -206,11 +215,11 @@
         function renderMembers(members) {
             const tbody = document.getElementById('members-tbody');
             const countEl = document.getElementById('members-count');
-            
+
             // Update count
             const count = members.length;
             countEl.textContent = `${count} ${count === 1 ? 'member' : 'members'}`;
-            
+
             if (members.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No members found</td></tr>';
                 return;
@@ -260,7 +269,7 @@
             event.preventDefault();
             const name = document.getElementById('member-name').value.trim();
             const errorDiv = document.getElementById('form-error');
-            
+
             if (!name) {
                 errorDiv.textContent = 'Name is required';
                 errorDiv.style.display = 'block';
@@ -268,11 +277,11 @@
             }
 
             try {
-                const url = editingMemberId 
+                const url = editingMemberId
                     ? `/api/members/${editingMemberId}`
                     : '/api/members';
                 const method = editingMemberId ? 'PUT' : 'POST';
-                
+
                 const response = await fetch(url, {
                     method: method,
                     headers: { 'Content-Type': 'application/json' },
@@ -316,7 +325,7 @@
                 showError('Failed to delete member: ' + error.message);
             }
         }
-        
+
         function showSuccess(message) {
             const successDiv = document.getElementById('success-message');
             if (successDiv) {
@@ -341,5 +350,5 @@
         loadMembers();
     </script>
 </body>
-</html>
 
+</html>
